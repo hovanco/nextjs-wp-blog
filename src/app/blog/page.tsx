@@ -5,6 +5,9 @@ import BlogList from "../components/BlogList";
 import BlogPagination from "../components/BlogPagination";
 import withMinLoading from "../utils/withMinLoading";
 import fetchPosts from "../utils/fetchPosts";
+import fetchCategories from "../utils/fetchCategories";
+import { Category } from "../types/category";
+import CategoryList from "../components/CategoryList";
 
 const Blog = () => {
   const postsPerPage = 10;
@@ -12,6 +15,9 @@ const Blog = () => {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [activeCategory, setActiveCategory] = useState<number>(0);
 
   const getPosts = async () => {
     try {
@@ -31,23 +37,47 @@ const Blog = () => {
     }
   };
 
+  const geCategoriesPost = async () => {
+    try {
+      const data = await withMinLoading(fetchCategories(), 500);
+      const updatedCategories = [{ id: 0, name: "All" }, ...data];
+      setCategories(updatedCategories);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
+  const handleCategoryClick = (categoryId: number) => {
+    setActiveCategory(categoryId);
+  };
+
   useEffect(() => {
     getPosts();
+    geCategoriesPost();
   }, [currentPage]);
 
   return (
-    <>
-      <BlogList posts={posts} isLoading={isLoading} />
-      <BlogPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-    </>
+    <main id="blog-page">
+      <div className="container">
+        <CategoryList
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryClick={handleCategoryClick}
+        />
+        <BlogList posts={posts} isLoading={isLoading} />
+        <BlogPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </main>
   );
 };
 
