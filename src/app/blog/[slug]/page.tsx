@@ -1,71 +1,106 @@
 "use client";
-
+import { BlogData } from "@/app/types/posts";
+import fetchPostDetail from "@/app/utils/fetchPostDetail";
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import IconTime from "../../assets/images/icon-time.png";
+import IconAuthor from "../../assets/images/icon-author.png";
+import { formatDate } from "@/app/utils/date";
+import withMinLoading from "@/app/utils/withMinLoading";
 
 const BlogDetail = () => {
   const { slug } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [blogDetail, setBlogDetail] = useState<BlogData | null>(null);
+
+  const loadBlogDetail = async () => {
+    const minimumLoadingTime = 500; // 0.5 giây
+    const startTime = Date.now();
+
+    try {
+      const data = await withMinLoading(fetchPostDetail(slug as string), 500);
+      setBlogDetail(new BlogData(data[0]));
+    } catch (error) {
+      console.error("Error fetching post detail:", error);
+    } finally {
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = minimumLoadingTime - elapsedTime;
+      if (remainingTime > 0) {
+        setTimeout(() => setIsLoading(false), remainingTime);
+      } else {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    loadBlogDetail();
+  }, [slug]);
+
   return (
-    // <main>
-    //   <p>Blog detail</p>
-    // </main>
     <main className="blog-detail-page">
       <div className="detail-page">
         <div className="container">
-          <h1 className="title">Scope</h1>
-          <div className="detail-meta">
-            <div className="card-time">
-              <img
-                className="card-icon-time"
-                alt="Icon Time"
-                src="/_next/static/media/icon-time.07e819a9.png"
+          {!isLoading && blogDetail ? (
+            <>
+              <h1
+                className="title"
+                dangerouslySetInnerHTML={{ __html: blogDetail?.title || "" }}
               />
-              <time className="card-text-time">13/03/2025</time>
-            </div>
-            <div className="card-author">
-              <img
-                className="card-icon-author"
-                alt="Icon Author"
-                src="/_next/static/media/icon-author.ef03c2cd.png"
+              <div className="detail-meta">
+                <div className="card-time">
+                  <img
+                    className="card-icon-time"
+                    src={IconTime?.src}
+                    alt="Icon Time"
+                  />
+                  <time
+                    className="card-text-time"
+                    dangerouslySetInnerHTML={{
+                      __html: formatDate(blogDetail?.date || ""),
+                    }}
+                  />
+                </div>
+                <div className="card-author">
+                  <img
+                    className="card-icon-author"
+                    src={IconAuthor?.src}
+                    alt="Icon Author"
+                  />
+                  <span
+                    className="card-text-author"
+                    dangerouslySetInnerHTML={{
+                      __html: blogDetail?.authorName || "",
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="category">
+                {blogDetail?.categories?.map((category: any) => (
+                  <div className="card-category-label" key={category?.id}>
+                    <span className="card-text-category">{category?.name}</span>
+                  </div>
+                ))}
+              </div>
+              <div
+                className="blog-detail-content"
+                dangerouslySetInnerHTML={{
+                  __html: blogDetail?.content || "",
+                }}
               />
-              <span className="card-text-author">co.ho</span>
+            </>
+          ) : (
+            <div className="skeleton-wrapper">
+              <div className="skeleton-text skeleton-title"></div>
+              <div className="skeleton-text skeleton-date-author"></div>
+              <div className="skeleton-text skeleton-category"></div>
+              <div className="skeleton-text skeleton-detail-content"></div>
+              <div className="skeleton-image"></div>
+              <div className="skeleton-text skeleton-title"></div>
+              <div className="skeleton-text skeleton-title"></div>
+              <div className="skeleton-text short"></div>
             </div>
-          </div>
-          <div className="category">
-            <div className="card-category-label">
-              <span className="card-text-category">Javascript</span>
-            </div>
-          </div>
-          <div className="blog-detail-content">
-            <p>
-              The&nbsp;<strong>scope</strong>&nbsp;is the current context of
-              execution in which&nbsp;
-              <a href="https://developer.mozilla.org/en-US/docs/Glossary/Value">
-                values
-              </a>
-              &nbsp;and expressions are “visible” or can be referenced. If
-              a&nbsp;
-              <a href="https://developer.mozilla.org/en-US/docs/Glossary/Variable">
-                variable
-              </a>
-              &nbsp;or expression is not in the current scope, it will not be
-              available for use. Scopes can also be layered in a hierarchy, so
-              that child scopes have access to parent scopes, but not vice
-              versa.
-            </p>
-            <figure className="wp-block-image size-full">
-              <img
-                loading="lazy"
-                decoding="async"
-                width={304}
-                height={166}
-                src="https://wp-blog-page.local/wp-content/uploads/2025/03/scope-js.jpeg"
-                alt=""
-                className="wp-image-78"
-                srcSet="https://wp-blog-page.local/wp-content/uploads/2025/03/scope-js.jpeg 304w, https://wp-blog-page.local/wp-content/uploads/2025/03/scope-js-300x164.jpeg 300w"
-                sizes="auto, (max-width: 304px) 100vw, 304px"
-              />
-            </figure>
-          </div>
+          )}
         </div>
       </div>
     </main>
