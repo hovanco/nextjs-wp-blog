@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Category } from "../types/category";
 
-const fetchCategories = async (): Promise<Category[]> => {
+export const fetchCategories = async (): Promise<Category[]> => {
   try {
     const res = await axios.get(
       "https://wp-blog-page.local/wp-json/wp/v2/categories"
@@ -15,5 +15,3 @@ const fetchCategories = async (): Promise<Category[]> => {
     }
   }
 };
-
-export default fetchCategories;

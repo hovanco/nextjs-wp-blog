@@ -1,12 +1,12 @@
 "use client";
 import { BlogData } from "@/app/types/posts";
-import fetchPostDetail from "@/app/utils/fetchPostDetail";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import IconTime from "../../assets/images/icon-time.png";
 import IconAuthor from "../../assets/images/icon-author.png";
 import { formatDate } from "@/app/utils/date";
-import withMinLoading from "@/app/utils/withMinLoading";
+import { fetchPostDetail } from "@/app/utils/fetchPostDetail";
+import { withMinLoading } from "@/app/utils/withMinLoading";
 
 const BlogDetail = () => {
   const { slug } = useParams();

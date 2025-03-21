@@ -1,37 +1,9 @@
-// import axios from "axios";
-// import { BlogData } from "../types/posts";
+import axios, { AxiosResponse } from "axios";
 
-// interface FetchPostsResponse {
-//   posts: BlogData[];
-//   numberOfPosts: number;
-// }
-
-// export const fetchPosts = async (
-//   postsPerPage: number,
-//   page: number
-// ): Promise<FetchPostsResponse> => {
-//   try {
-//     const response = await axios.get(
-//       `https://wp-blog-page.local/wp-json/wp/v2/posts?_embed&per_page=${postsPerPage}&page=${page}`
-//     );
-//     const data = response.data;
-//     const posts = data.map((item: any) => new BlogData(item));
-//     const numberOfPosts = parseInt(response.headers["x-wp-total"], 10);
-//     return {
-//       posts,
-//       numberOfPosts,
-//     };
-//   } catch (error) {
-//     if (axios.isAxiosError(error)) {
-//       throw new Error(`Axios error! Status: ${error.response?.status}`);
-//     } else {
-//       throw new Error("An unknown error occurred.");
-//     }
-//   }
-// };
-
-import axios from "axios";
-const fetchPosts = async (postsPerPage: number, page: number): Promise<any> => {
+export const fetchPosts = async (
+  postsPerPage: number,
+  page: number
+): Promise<AxiosResponse> => {
   try {
     const response = await axios.get(
       `https://wp-blog-page.local/wp-json/wp/v2/posts?_embed&per_page=${postsPerPage}&page=${page}`
@@ -45,4 +17,22 @@ const fetchPosts = async (postsPerPage: number, page: number): Promise<any> => {
     }
   }
 };
-export default fetchPosts;
+
+export const fetchPostsByCategory = async (
+  categoryId: number,
+  page: number,
+  postsPerPage: number
+): Promise<AxiosResponse> => {
+  try {
+    const res: AxiosResponse = await axios.get(
+      `https://wp-blog-page.local/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${postsPerPage}&page=${page}&_embed`
+    );
+    return res;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Axios error! Status: ${error.response?.status}`);
+    } else {
+      throw new Error("An unknown error occurred.");
+    }
+  }
+};

@@ -1,4 +1,4 @@
-const withMinLoading = async <T>(
+export const withMinLoading = async <T>(
   promise: Promise<T>,
   minTime: number
 ): Promise<T> => {
@@ -15,5 +15,3 @@ const withMinLoading = async <T>(
 
   return result;
 };
-
-export default withMinLoading;

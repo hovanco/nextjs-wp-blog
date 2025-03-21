@@ -1,5 +1,6 @@
 import axios from "axios";
-const fetchPostDetail = async (slug: string): Promise<any> => {
+
+export const fetchPostDetail = async (slug: string): Promise<any> => {
   try {
     const res = await axios.get(
       `https://wp-blog-page.local/wp-json/wp/v2/posts?slug=${slug}&_embed`
@@ -13,5 +14,3 @@ const fetchPostDetail = async (slug: string): Promise<any> => {
     }
   }
 };
-
-export default fetchPostDetail;
