@@ -209,7 +209,6 @@ span {
   max-width: 200px;
   object-fit: cover;
   border-radius: 4px;
-  /* height: 12vh; */
 }
 
 .skeleton-text.skeleton-border {
@@ -224,9 +223,11 @@ span {
 }
 
 /* end skeleton */
+.search-container {
+  width: 100%;
+}
 
 .search-container .search-box {
-  margin-top: 120px;
   height: 50px;
   border-radius: 30px;
   display: flex;
@@ -248,10 +249,13 @@ span {
   background-color: #f2f2f2;
 }
 
-input:-webkit-autofill {
-  background-color: white !important;
-  color: black !important;
-  border: 1px solid #ccc;
+button,
+input,
+select,
+optgroup,
+textarea,
+::file-selector-button {
+  background-color: none;
 }
 
 input:-webkit-autofill::first-line {
@@ -324,14 +328,12 @@ button.close-icon {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-
   display: flex;
   align-items: center;
   justify-content: center;
   width: 16px;
   height: 16px;
   font-size: 20px;
-
   padding: 12px;
   border: none;
   cursor: pointer;
@@ -341,7 +343,6 @@ button.close-icon {
 }
 
 /* end no result*/
-
 
 /* start category */
 .category-list {

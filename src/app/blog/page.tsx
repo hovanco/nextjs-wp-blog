@@ -8,16 +8,19 @@ import CategoryList from "../components/CategoryList";
 import { fetchPosts, fetchPostsByCategory } from "../utils/fetchPosts";
 import { withMinLoading } from "../utils/withMinLoading";
 import { fetchCategories } from "../utils/fetchCategories";
+import SearchBar from "../components/SearchBar";
+import { searchPosts } from "../utils/searchPosts";
 
 const Blog = () => {
-  const postsPerPage = 10;
+  const postsPerPage: number = 10;
   const [posts, setPosts] = useState<BlogData[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<number>(0);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const getPosts = async (page: number = 1) => {
     try {
@@ -58,8 +61,9 @@ const Blog = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setIsLoading(true);
-
-    if (activeCategory === 0) {
+    if (isSearching) {
+      getSearchPosts(searchQuery, page);
+    } else if (activeCategory === 0) {
       getPosts(page);
     } else {
       getPostsByCategory(activeCategory, page);
@@ -70,21 +74,13 @@ const Blog = () => {
     setCurrentPage(1);
     setActiveCategory(categoryId);
     setIsLoading(true);
-
+    setIsSearching(false);
     if (categoryId === 0) {
       getPosts(1);
     } else {
       getPostsByCategory(categoryId, 1);
     }
   };
-
-  useEffect(() => {
-    if (activeCategory === 0) {
-      getPosts(currentPage);
-    } else {
-      getPostsByCategory(activeCategory, currentPage);
-    }
-  }, [currentPage, activeCategory]);
 
   const geCategoriesPost = async () => {
     try {
@@ -96,17 +92,58 @@ const Blog = () => {
     }
   };
 
+  const getSearchPosts = async (query: string, page = 1) => {
+    setIsLoading(true);
+    setSearchQuery(query);
+    setIsSearching(true);
+    setActiveCategory(0);
+    try {
+      const res = await withMinLoading(
+        searchPosts(query, page, postsPerPage),
+        500
+      );
+      const results = res.data.map((item: any) => new BlogData(item));
+      setPosts(results);
+      const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
+      const totalPages = Math.ceil(numberOfPosts / postsPerPage);
+      setTotalPages(totalPages);
+    } catch (error: any) {
+      console.error("Error fetching search:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     geCategoriesPost();
   }, []);
 
+  useEffect(() => {
+    if (activeCategory === 0) {
+      getPosts(currentPage);
+    } else {
+      getPostsByCategory(activeCategory, currentPage);
+    }
+  }, [currentPage, activeCategory]);
+
+  useEffect(() => {
+    if (!isSearching && activeCategory === 0) {
+      getPosts(currentPage);
+    } else if (!isSearching && activeCategory !== 0) {
+      getPostsByCategory(activeCategory, currentPage);
+    }
+  }, [currentPage, activeCategory]);
+
   return (
     <main id="blog-page">
       <div className="container">
+        <SearchBar onSearch={getSearchPosts} isSearching={isSearching} />
+
         <CategoryList
           categories={categories}
           activeCategory={activeCategory}
           onCategoryClick={handleCategoryClick}
+          isSearching={isSearching}
         />
 
         <BlogList posts={posts} isLoading={isLoading} />

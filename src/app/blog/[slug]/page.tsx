@@ -10,11 +10,11 @@ import { withMinLoading } from "@/app/utils/withMinLoading";
 
 const BlogDetail = () => {
   const { slug } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [blogDetail, setBlogDetail] = useState<BlogData | null>(null);
 
   const loadBlogDetail = async () => {
-    const minimumLoadingTime = 500; // 0.5 giây
+    const minimumLoadingTime = 500;
     const startTime = Date.now();
 
     try {

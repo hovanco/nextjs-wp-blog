@@ -94,9 +94,13 @@ const BlogList = ({ posts, isLoading }: BlogListProps) => {
         </section>
       ) : (
         <section className="posts-list">
-          {posts?.map((post) => (
-            <BlogItem key={post.id} post={post} />
-          ))}
+          {posts.length > 0 ? (
+            posts.map((post) => <BlogItem key={post.id} post={post} />)
+          ) : (
+            <div className="no-results">
+              <p className="results-title">No posts available.</p>
+            </div>
+          )}
         </section>
       )}
     </>

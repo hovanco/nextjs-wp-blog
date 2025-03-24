@@ -3,9 +3,12 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-interface INavbarProps {}
+interface INavigationItem {
+  label: string;
+  href: string;
+}
 
-const navigation = [
+const navigation: INavigationItem[] = [
   {
     label: "Home",
     href: "/",
@@ -20,9 +23,9 @@ const navigation = [
   },
 ];
 
-const Header: React.FunctionComponent<INavbarProps> = (props) => {
+const Header: React.FunctionComponent = () => {
   const pathname = usePathname();
-  const [active, setActive] = useState(pathname);
+  const [active, setActive] = useState<string>(pathname);
   const pathBlog = "/" + pathname.split("/")[1];
 
   useEffect(() => {
@@ -30,32 +33,30 @@ const Header: React.FunctionComponent<INavbarProps> = (props) => {
   }, [pathname]);
 
   return (
-    <>
-      <header>
-        <nav className="header-nav">
-          <ul className="header-menu">
-            {navigation.map((item, index) => (
-              <li
-                key={index}
-                className={`header-item ${
-                  active === item.href || pathBlog === item.href
-                    ? "is-active"
-                    : ""
-                }`}
+    <header>
+      <nav className="header-nav">
+        <ul className="header-menu">
+          {navigation.map((item) => (
+            <li
+              key={item.href}
+              className={`header-item ${
+                active === item.href || pathBlog === item.href
+                  ? "is-active"
+                  : ""
+              }`}
+            >
+              <Link
+                className="header-link"
+                href={item.href}
+                onClick={() => setActive(item.href)}
               >
-                <Link
-                  className="header-link"
-                  href={item.href}
-                  onClick={() => setActive(item.href)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </header>
-    </>
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
   );
 };
 
