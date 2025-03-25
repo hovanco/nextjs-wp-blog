@@ -1,14 +1,14 @@
 "use client";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface INavigationItem {
+interface NavigationItem {
   label: string;
   href: string;
 }
 
-const navigation: INavigationItem[] = [
+const navigation: NavigationItem[] = [
   {
     label: "Home",
     href: "/",

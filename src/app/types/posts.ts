@@ -17,6 +17,6 @@ export class BlogData {
     this.date = data?.date;
     this.authorName = data?._embedded?.author?.[0]?.name;
     this.categories = data?._embedded?.["wp:term"]?.[0] ?? [];
-    this.content = data?.content.rendered;
+    this.content = data?.content?.rendered;
   }
 }

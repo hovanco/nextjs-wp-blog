@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { BlogData } from "../types/posts";
+import { API_BASE_URL } from "../services/api";
 
 export const fetchPosts = async (
   postsPerPage: number,
@@ -7,7 +8,7 @@ export const fetchPosts = async (
 ): Promise<AxiosResponse<BlogData[]>> => {
   try {
     const response = await axios.get(
-      `https://wp-blog-page.local/wp-json/wp/v2/posts?_embed&per_page=${postsPerPage}&page=${page}`
+      `${API_BASE_URL}posts?_embed&per_page=${postsPerPage}&page=${page}`
     );
     return response;
   } catch (error) {

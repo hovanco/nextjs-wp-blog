@@ -1,12 +1,12 @@
 "use client";
-import { BlogData } from "@/app/types/posts";
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import IconTime from "../../assets/images/icon-time.png";
-import IconAuthor from "../../assets/images/icon-author.png";
+import { useParams } from "next/navigation";
+import { BlogData } from "@/app/types/posts";
 import { formatDate } from "@/app/utils/date";
 import { fetchPostDetail } from "@/app/utils/fetchPostDetail";
 import { withMinLoading } from "@/app/utils/withMinLoading";
+import IconTime from "../../assets/images/icon-time.png";
+import IconAuthor from "../../assets/images/icon-author.png";
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -16,7 +16,6 @@ const BlogDetail = () => {
   const loadBlogDetail = async () => {
     const minimumLoadingTime = 500;
     const startTime = Date.now();
-
     try {
       const data = await withMinLoading(fetchPostDetail(slug as string), 500);
       setBlogDetail(new BlogData(data[0]));

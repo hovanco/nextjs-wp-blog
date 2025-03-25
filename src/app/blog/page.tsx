@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { BlogData } from "../types/posts";
 import BlogList from "../components/BlogList";
 import BlogPagination from "../components/BlogPagination";
-import { Category } from "../types/category";
 import CategoryList from "../components/CategoryList";
-import { fetchPosts, fetchPostsByCategory } from "../utils/fetchPosts";
-import { withMinLoading } from "../utils/withMinLoading";
-import { fetchCategories } from "../utils/fetchCategories";
 import SearchBar from "../components/SearchBar";
+import { BlogData } from "../types/posts";
+import { Category } from "../types/category";
+import { fetchPosts, fetchPostsByCategory } from "../utils/fetchPosts";
+import { fetchCategories } from "../utils/fetchCategories";
 import { searchPosts } from "../utils/searchPosts";
+import { withMinLoading } from "../utils/withMinLoading";
 
 const Blog = () => {
   const postsPerPage: number = 10;

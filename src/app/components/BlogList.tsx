@@ -1,5 +1,5 @@
-import { BlogData } from "../types/posts";
 import BlogItem from "./BlogItem";
+import { BlogData } from "../types/posts";
 
 interface BlogListProps {
   posts: BlogData[];

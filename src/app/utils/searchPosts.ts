@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { BlogData } from "../types/posts";
+import { API_BASE_URL } from "../services/api";
 
 export const searchPosts = async (
   query: string,
@@ -8,7 +9,7 @@ export const searchPosts = async (
 ): Promise<AxiosResponse<BlogData[]>> => {
   try {
     const res: AxiosResponse<BlogData[]> = await axios.get(
-      `https://wp-blog-page.local/wp-json/wp/v2/posts?_embed&search=${query}&page=${page}&per_page=${postsPerPage}`
+      `${API_BASE_URL}posts?_embed&search=${query}&page=${page}&per_page=${postsPerPage}`
     );
     return res;
   } catch (error) {
