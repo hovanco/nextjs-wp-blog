@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "Blog Học Tập Và Công Nghệ – Kiến Thức, Kinh Nghiệm, Xu Hướng Mới",
   description:
     "Explore expert insights, tips, and trends on the Learn JavaScript Blog. Stay updated with our latest articles, tutorials, and guides to enhance your JavaScript skills. Read more now!",
 };
