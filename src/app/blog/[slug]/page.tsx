@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import { BlogData } from "@/app/types/posts";
 import { formatDate } from "@/app/utils/date";
 import { fetchPostDetail } from "@/app/utils/fetchPostDetail";
@@ -48,10 +49,12 @@ const BlogDetail = () => {
               />
               <div className="detail-meta">
                 <div className="card-time">
-                  <img
+                  <Image
                     className="card-icon-time"
                     src={IconTime?.src}
                     alt="Icon Time"
+                    width={14}
+                    height={14}
                   />
                   <time
                     className="card-text-time"
@@ -61,10 +64,12 @@ const BlogDetail = () => {
                   />
                 </div>
                 <div className="card-author">
-                  <img
+                  <Image
                     className="card-icon-author"
                     src={IconAuthor?.src}
                     alt="Icon Author"
+                    width={14}
+                    height={14}
                   />
                   <span
                     className="card-text-author"

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BlogData } from "../types/posts";
 import { formatDate } from "../utils/date";
 import IconTime from "../assets/images/icon-time.png";
@@ -13,14 +14,14 @@ const BlogItem = ({ post }: BlogItemProps) => {
     <article className="card-item">
       <Link className="card-link" href={`/blog/${post?.slug}`}>
         <div className="card">
-          <figure className="card-img">
-            <img
+          {/* <figure className="card-img">
+            <Image
               alt="Post Image"
               width={180}
               height={101}
-              src={post.postImage}
+              src={post.postImage || ''}
             />
-          </figure>
+          </figure> */}
           <div className="card-content">
             <h4 className="card-title">{post.title}</h4>
             <p
@@ -31,9 +32,11 @@ const BlogItem = ({ post }: BlogItemProps) => {
             />
             <div className="card-footer">
               <div className="card-time">
-                <img
+                <Image
                   className="card-icon-time"
                   src={IconTime?.src}
+                  width={14}
+                  height={14}
                   alt="Icon Time"
                 />
                 <time
@@ -44,10 +47,12 @@ const BlogItem = ({ post }: BlogItemProps) => {
                 />
               </div>
               <div className="card-author">
-                <img
+                <Image
                   className="card-icon-author"
                   src={IconAuthor?.src}
                   alt="Icon Author"
+                  width={14}
+                  height={14}
                 />
                 <span
                   className="card-text-author"

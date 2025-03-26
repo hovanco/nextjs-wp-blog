@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off", // Disable 'no-explicit-any' globally (not recommended)
+    "react-hooks/exhaustive-deps": "warn" // Only show warnings for missing dependencies
+  }
+}

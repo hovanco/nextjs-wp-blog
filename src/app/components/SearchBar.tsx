@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import IconSearch from "../assets/images/icon-search.png";
 
 interface SearchBarProps {
@@ -36,7 +37,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isSearching }) => {
       <div className="search-container">
         <div className="search-box">
           <button type="submit" className="search-button">
-            <img
+            <Image
               className="search-icon"
               src={IconSearch.src}
               alt="Search Icon"
