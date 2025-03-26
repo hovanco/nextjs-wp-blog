@@ -37,7 +37,7 @@ const BlogDetail = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useEffect(() => {
     loadBlogDetail();
-  }, []);
+  }, [slug]);
 
   return (
     <main className="blog-detail-page">
@@ -82,13 +82,14 @@ const BlogDetail = () => {
                 </div>
               </div>
               <div className="category">
-                {/* Disable no-explicit-any rule for this line
-             eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {/* Disable no-explicit-any rule for this line */}
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {blogDetail?.categories?.map((category: any) => (
                   <div className="card-category-label" key={category?.id}>
                     <span className="card-text-category">{category?.name}</span>
                   </div>
                 ))}
+                {/* eslint-enable @typescript-eslint/no-explicit-any */}
               </div>
               <div
                 className="blog-detail-content"
