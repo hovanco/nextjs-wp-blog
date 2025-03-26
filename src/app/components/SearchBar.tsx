@@ -4,7 +4,7 @@ import IconSearch from "../assets/images/icon-search.png";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
-  isSearching: Boolean;
+  isSearching: boolean;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isSearching }) => {

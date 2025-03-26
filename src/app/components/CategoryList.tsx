@@ -4,7 +4,7 @@ interface CategoryListProps {
   categories: Category[];
   activeCategory: number;
   onCategoryClick: (categoryId: number) => void;
-  isSearching: Boolean;
+  isSearching: boolean;
 }
 
 const CategoryList = ({

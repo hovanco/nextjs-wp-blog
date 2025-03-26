@@ -3,7 +3,7 @@ import { BlogData } from "../types/posts";
 
 interface BlogListProps {
   posts: BlogData[];
-  isLoading: Boolean;
+  isLoading: boolean;
 }
 
 const BlogList = ({ posts, isLoading }: BlogListProps) => {
