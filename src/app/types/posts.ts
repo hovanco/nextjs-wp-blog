@@ -8,6 +8,8 @@ export class BlogData {
   authorName: string | undefined;
   categories: number[];
   content: string | undefined;
+  // Disable no-explicit-any rule for this line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(data: any) {
     this.id = data?.id;
     this.slug = data?.slug;

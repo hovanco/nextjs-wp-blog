@@ -28,6 +28,8 @@ const Blog = () => {
         fetchPosts(postsPerPage, page),
         500
       );
+      // Disable no-explicit-any rule for this line
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const postsData = response.data.map((item: any) => new BlogData(item));
       const numberOfPosts = parseInt(response.headers["x-wp-total"], 10);
       const totalPages = Math.ceil(numberOfPosts / postsPerPage);
@@ -46,6 +48,9 @@ const Blog = () => {
         fetchPostsByCategory(categoryId, page, postsPerPage),
         500
       );
+
+      // Disable no-explicit-any rule for this line
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data = res.data.map((item: any) => new BlogData(item));
       setPosts(data);
       const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
@@ -102,11 +107,15 @@ const Blog = () => {
         searchPosts(query, page, postsPerPage),
         500
       );
+      // Disable no-explicit-any rule for this line
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const results = res.data.map((item: any) => new BlogData(item));
       setPosts(results);
       const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
       const totalPages = Math.ceil(numberOfPosts / postsPerPage);
       setTotalPages(totalPages);
+      // Disable no-explicit-any rule for this line
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error fetching search:", error);
     } finally {
@@ -126,13 +135,20 @@ const Blog = () => {
     }
   }, [currentPage, activeCategory]);
 
+  // useEffect(() => {
+  //   if (!isSearching && activeCategory === 0) {
+  //     getPosts(currentPage);
+  //   } else if (!isSearching && activeCategory !== 0) {
+  //     getPostsByCategory(activeCategory, currentPage);
+  //   }
+  // }, [currentPage, activeCategory]);
   useEffect(() => {
     if (!isSearching && activeCategory === 0) {
       getPosts(currentPage);
     } else if (!isSearching && activeCategory !== 0) {
       getPostsByCategory(activeCategory, currentPage);
     }
-  }, [currentPage, activeCategory]);
+  }, [currentPage, activeCategory, isSearching]);
 
   return (
     <main id="blog-page">

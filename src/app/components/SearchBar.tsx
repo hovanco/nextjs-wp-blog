@@ -9,14 +9,12 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isSearching }) => {
   const [query, setQuery] = useState<string>("");
-  const [hasSearched, setHasSearched] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<string>("");
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim()) {
       onSearch(query);
-      setHasSearched(true);
       setSearchResult(query);
       setQuery("");
     }
@@ -26,7 +24,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isSearching }) => {
     if (e.key === "Enter" && query.trim()) {
       e.preventDefault();
       onSearch(query);
-      setHasSearched(true);
       setSearchResult(query);
       setQuery("");
     }

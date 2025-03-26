@@ -63,6 +63,7 @@ const BlogItem = ({ post }: BlogItemProps) => {
               </div>
             </div>
             <div className="card-category">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {post?.categories?.map((category: any) => (
                 <div className="card-category-label" key={category?.id}>
                   <span className="card-text-category">{category?.name}</span>
