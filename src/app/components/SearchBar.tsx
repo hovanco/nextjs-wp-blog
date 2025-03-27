@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import IconSearch from "../assets/images/icon-search.png";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
-  isSearching: boolean;
+  activeCategory: number;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isSearching }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  onSearch,
+  activeCategory,
+}: SearchBarProps) => {
   const [query, setQuery] = useState<string>("");
   const [searchResult, setSearchResult] = useState<string>("");
 
@@ -28,6 +31,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isSearching }) => {
       setQuery("");
     }
   };
+
+  useEffect(() => {
+    setSearchResult("");
+  }, [activeCategory]);
 
   return (
     <form onSubmit={handleSearch} className="flex items-center">
@@ -63,7 +70,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isSearching }) => {
             )}
           </div>
         </div>
-        {isSearching && searchResult && (
+        {searchResult && (
           <p className="search-title">Results for: {searchResult}</p>
         )}
       </div>

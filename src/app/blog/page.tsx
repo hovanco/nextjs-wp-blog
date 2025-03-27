@@ -19,8 +19,6 @@ const Blog = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<number>(0);
-  const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const getPosts = async (page: number = 1) => {
     try {
@@ -66,9 +64,7 @@ const Blog = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setIsLoading(true);
-    if (isSearching) {
-      getSearchPosts(searchQuery, page);
-    } else if (activeCategory === 0) {
+    if (activeCategory === 0) {
       getPosts(page);
     } else {
       getPostsByCategory(activeCategory, page);
@@ -79,7 +75,6 @@ const Blog = () => {
     setCurrentPage(1);
     setActiveCategory(categoryId);
     setIsLoading(true);
-    setIsSearching(false);
     if (categoryId === 0) {
       getPosts(1);
     } else {
@@ -99,12 +94,12 @@ const Blog = () => {
 
   const getSearchPosts = async (query: string, page = 1) => {
     setIsLoading(true);
-    setSearchQuery(query);
-    setIsSearching(true);
-    setActiveCategory(0);
     try {
+      // Check if already select sort by categoryId or no
+      const selectedCategoryId =
+        activeCategory !== 0 ? activeCategory : undefined;
       const res = await withMinLoading(
-        searchPosts(query, page, postsPerPage),
+        searchPosts(query, page, postsPerPage, selectedCategoryId),
         500
       );
       // Disable no-explicit-any rule for this line
@@ -134,36 +129,24 @@ const Blog = () => {
       getPostsByCategory(activeCategory, currentPage);
     }
   }, [currentPage, activeCategory]);
-
-  // useEffect(() => {
-  //   if (!isSearching && activeCategory === 0) {
-  //     getPosts(currentPage);
-  //   } else if (!isSearching && activeCategory !== 0) {
-  //     getPostsByCategory(activeCategory, currentPage);
-  //   }
-  // }, [currentPage, activeCategory]);
   useEffect(() => {
-    if (!isSearching && activeCategory === 0) {
+    if (activeCategory === 0) {
       getPosts(currentPage);
-    } else if (!isSearching && activeCategory !== 0) {
+    } else if (activeCategory !== 0) {
       getPostsByCategory(activeCategory, currentPage);
     }
-  }, [currentPage, activeCategory, isSearching]);
+  }, [currentPage, activeCategory]);
 
   return (
     <main id="blog-page">
       <div className="container">
-        <SearchBar onSearch={getSearchPosts} isSearching={isSearching} />
-
+        <SearchBar onSearch={getSearchPosts} activeCategory={activeCategory} />
         <CategoryList
           categories={categories}
           activeCategory={activeCategory}
           onCategoryClick={handleCategoryClick}
-          isSearching={isSearching}
         />
-
         <BlogList posts={posts} isLoading={isLoading} />
-
         {posts.length > 0 && totalPages > 1 ? (
           <BlogPagination
             currentPage={currentPage}

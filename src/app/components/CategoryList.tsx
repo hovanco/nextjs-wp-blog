@@ -4,14 +4,12 @@ interface CategoryListProps {
   categories: Category[];
   activeCategory: number;
   onCategoryClick: (categoryId: number) => void;
-  isSearching: boolean;
 }
 
 const CategoryList = ({
   categories,
   activeCategory,
   onCategoryClick,
-  isSearching,
 }: CategoryListProps) => {
   return (
     <div className="category-container">
@@ -20,7 +18,7 @@ const CategoryList = ({
           <div
             key={category.id}
             className={`category-item ${
-              !isSearching && activeCategory === category.id ? "active" : ""
+              activeCategory === category.id ? "active" : ""
             }`}
             onClick={() => onCategoryClick(category.id)}
           >
