@@ -57,7 +57,7 @@
   gap: 10px;
   width: 203px;
   height: 49px;
-  background: #FF6464;
+  background: linear-gradient(135deg, #EDA068, #F9B616);
   border-radius: 2px;
 }
 
@@ -109,7 +109,6 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #00A8CC;
 }
 
 #homepage .recent-title {
@@ -194,7 +193,6 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 29px;
-  color: #8695A4;
 }
 
 #homepage .featured-label-year {
