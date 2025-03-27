@@ -47,9 +47,11 @@ const Home = () => {
         <div className="container">
           <div className="recent-top">
             <p className="recent-top-text">Recent posts</p>
-            <Link className="recent-top-link" href="/blog">
-              View all
-            </Link>
+            <div className="wrapper-top-link">
+              <Link className="recent-top-link" href="/blog">
+                View all
+              </Link>
+            </div>
           </div>
           <div className="recent-list">
             <div className="recent-item">
