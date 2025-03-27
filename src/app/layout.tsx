@@ -15,9 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blog Học Tập Và Công Nghệ – Kiến Thức, Kinh Nghiệm, Xu Hướng Mới",
+  title:
+    "Learning and Technology Blog – Knowledge, Experience, and Latest Trends",
   description:
-    "Explore expert insights, tips, and trends on the Learn JavaScript Blog. Stay updated with our latest articles, tutorials, and guides to enhance your JavaScript skills. Read more now!",
+    "Explore expert insights, tips, and trends on the Learning Blog. Stay updated with our latest articles, tutorials, and guides to enhance your knowledge and skills. Read more now!",
 };
 
 export default function RootLayout({
@@ -30,7 +31,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* {children} */}
         <Layout>{children}</Layout>
       </body>
     </html>
