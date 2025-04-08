@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "wp-blog-page.local",
+        hostname: "codev.food",
         port: "",
         pathname: "/wp-content/uploads/**",
         search: "",
