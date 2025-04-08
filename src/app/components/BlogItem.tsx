@@ -14,14 +14,14 @@ const BlogItem = ({ post }: BlogItemProps) => {
     <article className="card-item">
       <Link className="card-link" href={`/blog/${post?.slug}`}>
         <div className="card">
-          {/* <figure className="card-img">
+          <figure className="card-img">
             <Image
               alt="Post Image"
               width={180}
               height={101}
-              src={post.postImage || ''}
+              src={post.postImage || ""}
             />
-          </figure> */}
+          </figure>
           <div className="card-content">
             <h4 className="card-title">{post.title}</h4>
             <p

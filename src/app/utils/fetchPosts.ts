@@ -27,7 +27,8 @@ export const fetchPostsByCategory = async (
 ): Promise<AxiosResponse<BlogData[]>> => {
   try {
     const res: AxiosResponse = await axios.get(
-      `https://wp-blog-page.local/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${postsPerPage}&page=${page}&_embed`
+      // `https://wp-blog-page.local/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${postsPerPage}&page=${page}&_embed`
+      `https://codev.food/wp-json/wp/v2/posts?categories=${categoryId}&per_page=${postsPerPage}&page=${page}&_embed`
     );
     return res;
   } catch (error) {
