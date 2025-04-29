@@ -1,13 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
-import IconSearch from "./assets/images/my-avatar.jpg";
+import CoAvatar from "./assets/images/co-avatar.jpeg";
 import Malayalam from "./assets/images/malayalam-type.jpeg";
 import VibrantPortraits from "./assets/images/vibrant-portraits.jpeg";
-import DesignDashboard from "./assets/images/desig-dashboard.png";
-import FB from "./assets/icons/fb.svg";
-import Instagram from "./assets/icons/insta.svg";
-import Twitter from "./assets/icons/twitter.svg";
-import Linkedin from "./assets/icons/linkedin.svg";
+import DesignDashboard from "./assets/images/design-dashboard.png";
+
+import Linkedin from "./assets/icons/linkedin-logo.svg";
+import Gmail from "./assets/icons/gmail-logo.svg";
+import Skype from "./assets/icons/skype-logo.svg";
+
+import HTML from "./assets/icons/html5-logo.svg";
+import CSS from "./assets/icons/css3-logo.svg";
+import SCSS from "./assets/icons/sass-logo.svg";
+import Tailwindcss from "./assets/icons/tailwindcss-logo.svg";
+import JavaScript from "./assets/icons/javascript-logo.svg";
+import Redux from "./assets/icons/redux-logo.svg";
+import ReactJS from "./assets/icons/react-logo.svg";
+import NextJS from "./assets/icons/nextjs-logo.svg";
+import AngularJS from "./assets/icons/angular-logo.svg";
+import VueJS from "./assets/icons/vue-logo.svg";
+import TypeScript from "./assets/icons/typescript-logo.svg";
+import GIT from "./assets/icons/git-logo.svg";
+import Bootstrap from "./assets/icons/bootstrap-logo.svg";
+import Material from "./assets/icons/material-logo.svg";
+import Wordpress from "./assets/icons/wordpress-logo.svg";
+import Responsive from "./assets/icons/responsive-logo.svg";
+import Figma from "./assets/icons/figma-logo.svg";
+import Office365 from "./assets/icons/office-365-logo.svg";
 
 const Home = () => {
   return (
@@ -17,12 +36,12 @@ const Home = () => {
           <div className="banner-wrapper">
             <div className="banner-content">
               <h1>
-                Hi, I am John <br /> Web Developer
+                Hi, I am Co <br /> Web Developer
               </h1>
               <h2>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint. Velit officia consequat duis enim velit mollit.
-                Exercitation veniam consequat sunt nostrud amet.
+                {
+                  "I'm a passionate Front-End Developer with over 3 years of experience crafting responsive, accessible, and high-performance web applications. I specialize in turning complex UI/UX designs into clean, maintainable code that delivers real value to users and businesses alike."
+                }
               </h2>
               <div className="wrapper-img">
                 <button>Download Resume</button>
@@ -32,7 +51,7 @@ const Home = () => {
               <div className="banner-img">
                 <Image
                   className="banner-avatar"
-                  src={IconSearch.src}
+                  src={CoAvatar.src}
                   alt="Avatar"
                   width={100}
                   height={200}
@@ -43,10 +62,10 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section recent-posts">
+      {/* <section className="section recent-posts">
         <div className="container">
           <div className="recent-top">
-            <p className="recent-top-text">Recent posts</p>
+            <p className="recent-top-text">IT Skills</p>
             <div className="wrapper-top-link">
               <Link className="recent-top-link" href="/blog">
                 View all
@@ -77,6 +96,181 @@ const Home = () => {
               </p>
             </div>
           </div>
+        </div>
+      </section> */}
+
+      <section className="section skill-section">
+        <div className="container">
+          <div className="skill-top">
+            <p className="skill-title">IT Skills</p>
+            <p className="skill-sub-title">
+              The skills, tools and technologies I am really good at:
+            </p>
+          </div>
+          <ul className="skill-list">
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={HTML.src}
+                alt="HTML logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={CSS.src}
+                alt="CSS logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={SCSS.src}
+                alt="SCSS logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Tailwindcss.src}
+                alt="Tailwindcss logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={JavaScript.src}
+                alt="JavaScript logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Redux.src}
+                alt="Redux logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={ReactJS.src}
+                alt="ReactJS logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={NextJS.src}
+                alt="NextJS logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={VueJS.src}
+                alt="VueJS logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={AngularJS.src}
+                alt="AngularJS logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={TypeScript.src}
+                alt="TypeScript logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Wordpress.src}
+                alt="Wordpress logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={GIT.src}
+                alt="GIT logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Bootstrap.src}
+                alt="Bootstrap logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Material.src}
+                alt="Material logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Responsive.src}
+                alt="Responsive logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Figma.src}
+                alt="Figma logo"
+                width={50}
+                height={50}
+              />
+            </li>
+            <li className="skill-item">
+              <Image
+                className="skill-logo"
+                src={Office365.src}
+                alt="Office365 logo"
+                width={50}
+                height={50}
+              />
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -161,34 +355,10 @@ const Home = () => {
       <footer className="section footer-section">
         <div className="container">
           <div className="social-list">
-            <div className="social-item">
-              <Image
-                className="social-icon"
-                src={FB.src}
-                alt="Facebook"
-                width={24}
-                height={24}
-              />
-            </div>
-            <div className="social-item">
-              <Image
-                className="social-icon"
-                src={Instagram.src}
-                alt="Instagram"
-                width={24}
-                height={24}
-              />
-            </div>
-            <div className="social-item">
-              <Image
-                className="social-icon"
-                src={Twitter.src}
-                alt="Twitter"
-                width={24}
-                height={24}
-              />
-            </div>
-            <div className="social-item">
+            <Link
+              href="https://www.linkedin.com/in/hovanco/"
+              className="social-item"
+            >
               <Image
                 className="social-icon"
                 src={Linkedin.src}
@@ -196,7 +366,28 @@ const Home = () => {
                 width={24}
                 height={24}
               />
-            </div>
+            </Link>
+            <Link href="mailto:hovanco.vn@gmail.com" className="social-item">
+              <Image
+                className="social-icon"
+                src={Gmail.src}
+                alt="Gmail"
+                width={24}
+                height={24}
+              />
+            </Link>
+            <Link
+              href="https://join.skype.com/invite/xn8XLBob1QX8"
+              className="social-item"
+            >
+              <Image
+                className="social-icon"
+                src={Skype.src}
+                alt="Skype"
+                width={24}
+                height={24}
+              />
+            </Link>
           </div>
           <p className="copyright-text">Copyright ©2025 All rights reserved </p>
         </div>

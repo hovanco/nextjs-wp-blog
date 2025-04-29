@@ -12,6 +12,7 @@
 
 #homepage .banner-wrapper {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
   align-items: center;
 }
@@ -46,9 +47,8 @@
   line-height: 29px;
   color: #FFFFFF;
   cursor: pointer;
-}
 
-#homepage .wrapper-img {
+
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -57,8 +57,12 @@
   gap: 10px;
   width: 203px;
   height: 49px;
-  background: linear-gradient(135deg, #EDA068, #F9B616);
+  background: linear-gradient(114.44deg, #ff7a09 0, #ffa85f 100%);
   border-radius: 2px;
+}
+
+#homepage .banner-wrapper button:hover {
+  background: #ff7f0e;
 }
 
 #homepage .banner-wrapper .banner-content {
@@ -83,6 +87,58 @@
 }
 
 /* recent */
+
+
+/* start skill section */
+.section.skill-section {
+  padding: 34px 0;
+  background-color: #EDF7FA;
+}
+
+.skill-top {
+  margin-bottom: 40px;
+}
+
+
+#homepage .skill-title,
+#homepage .skill-sub-title {
+  text-align: center;
+}
+
+#homepage .skill-title {
+  margin-bottom: 18px;
+  font-family: 'Heebo';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 26px;
+  color: #FFFFFF;
+  padding: 0px 8px;
+  background: #142850;
+  border-radius: 16px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 4px 12px;
+}
+
+#homepage .skill-sub-title {
+  margin-top: 12px;
+}
+
+#homepage .skill-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 750px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 4px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+/* end skill section */
 
 #homepage .recent-posts {
   padding: 34px 0;
@@ -266,4 +322,14 @@
 
 #homepage .footer-section {
   padding-bottom: 54px;
+}
+
+@media (max-width: 480px) {
+  #homepage .banner-wrapper {
+    flex-direction: column-reverse;
+  }
+
+  #homepage .banner-wrapper .banner-content {
+    max-width: 100%;
+  }
 }
