@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import Linkedin from "../assets/icons/linkedin-logo.svg";
 import Gmail from "../assets/icons/gmail-logo.svg";
-import Skype from "../assets/icons/skype-logo.svg";
 
 const Footer: React.FC = () => {
   return (
@@ -27,18 +26,6 @@ const Footer: React.FC = () => {
               className="social-icon"
               src={Gmail.src}
               alt="Gmail"
-              width={24}
-              height={24}
-            />
-          </Link>
-          <Link
-            href="https://join.skype.com/invite/xn8XLBob1QX8"
-            className="social-item"
-          >
-            <Image
-              className="social-icon"
-              src={Skype.src}
-              alt="Skype"
               width={24}
               height={24}
             />
