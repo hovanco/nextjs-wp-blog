@@ -2,6 +2,7 @@ import AboutMe from "./components/AboutMe";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Hobbies from "./components/Hobbies";
+import Thanks from "./components/Thanks";
 import Footer from "./components/Footer";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
       <Skills />
       <Experience />
       <Hobbies />
+      <Thanks />
       <Footer />
     </main>
   );

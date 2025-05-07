@@ -8,6 +8,7 @@ import BallInHand from "../assets/images/co-with-ball.jpg";
 import BadmintonClub from "../assets/images/badminton-team.png";
 import VolleyballClub from "../assets/images/co-volleyball.jpeg";
 import VolleyballClub2 from "../assets/images/co-volleyball-2.jpg";
+import CoBadminton from "../assets/images/co-badminton.jpg";
 
 type Hobby = {
   image: StaticImageData;
@@ -33,6 +34,11 @@ const hobbyList: Hobby[] = [
     image: VolleyballClub2,
     alt: "Volleyball team photo",
   },
+  {
+    image: BadmintonClub,
+    alt: "Badminton club activity",
+  },
+  { image: CoBadminton, alt: "Badminton activity" },
 ];
 
 const Hobbies: React.FC = () => {
@@ -56,6 +62,12 @@ const Hobbies: React.FC = () => {
             />
           </figure>
         ))}
+      </div>
+      <div className="wrapper-video">
+        <video className="football-video" controls>
+          <source src="/dsc_full.mov" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </section>
   );

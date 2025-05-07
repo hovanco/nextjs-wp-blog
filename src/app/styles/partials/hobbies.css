@@ -11,8 +11,7 @@
   grid-auto-rows: minmax(150px, auto);
   gap: 20px;
   max-width: 920px;
-  margin: auto;
-  margin-top: -20px;
+  margin: -20px auto 20px;
 }
 
 .hobbies-section .grid-item {
@@ -51,8 +50,39 @@
 
 .hobbies-section .grid-item6 {
   grid-column: 1 / 4;
+  grid-row: 4;
+  font-size: 1.2rem;
+}
+
+.hobbies-section .grid-item7 {
+  grid-column: 1 / 2;
+  grid-row: 4;
+  font-size: 1.2rem;
+}
+
+.hobbies-section .grid-item7 {
+  grid-column: 2 / 4;
   grid-row: 3;
   font-size: 1.2rem;
+}
+
+.hobbies-section .wrapper-video {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+}
+
+.hobbies-section .football-video {
+  width: 100%;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: "0 4px 12px rgba(0,0,0,0.15)";
 }
 
 @media (max-width: 480px) {
