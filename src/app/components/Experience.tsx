@@ -41,11 +41,11 @@ const experienceList: experienceListType[] = [
 
 const Experience: React.FC = () => {
   return (
-    <section className="experience-section">
+    <section className="section experience-section">
       <div className="container">
-        <div className="skills-head">
-          <p className="skills-title">Experience</p>
-          <p className="skills-sub-title">
+        <div className="section-head">
+          <p className="section-title">Experience</p>
+          <p className="section-sub-title">
             A selection of featured works, tools, and technologies that reflect
             my professional experience
           </p>
@@ -64,9 +64,11 @@ const Experience: React.FC = () => {
               <div className="experience-content">
                 <p className="experience-title">{item?.title}</p>
                 <div className="experience-top">
-                  <time className="experience-label-year">
-                    {item?.dateRange}
-                  </time>
+                  <div className="arrow-shape">
+                    <time className="experience-label-year">
+                      {item?.dateRange}
+                    </time>
+                  </div>
                   <p className="experience-label-text">{item?.title}</p>
                 </div>
                 <p className="experience-desc">{item?.description}</p>

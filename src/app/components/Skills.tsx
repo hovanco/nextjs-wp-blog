@@ -49,12 +49,12 @@ const skillList: Skill[] = [
 
 const SkillsComponent: React.FC = () => {
   return (
-    <section className="skills-section">
+    <section className="section skills-section">
       <div className="container">
-        <div className="skills-head">
-          <p className="skills-title">IT Skills</p>
-          <p className="skills-sub-title">
-            The skills, tools and technologies I am really good at:
+        <div className="section-head">
+          <p className="section-title">IT Skills</p>
+          <p className="section-sub-title">
+            The skills, tools and technologies I am proficient in
           </p>
         </div>
         <ul className="skills-list">

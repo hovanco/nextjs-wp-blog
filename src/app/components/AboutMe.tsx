@@ -3,7 +3,7 @@ import CoAvatar from "../assets/images/co-avatar.jpeg";
 
 const AboutMe = () => {
   return (
-    <section className="about-section">
+    <section className="section about-section">
       <div className="container">
         <div className="about-wrapper">
           <div className="about-content">

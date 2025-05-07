@@ -1,31 +1,5 @@
 .skills-section {
-  padding: 34px 0;
   background-color: #EDF7FA;
-}
-
-.skills-head {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.skills-title {
-  margin-bottom: 18px;
-  font-family: 'Heebo';
-  font-style: normal;
-  font-weight: 900;
-  font-size: 18px;
-  line-height: 26px;
-  color: #FFFFFF;
-  padding: 0px 8px;
-  background: #142850;
-  border-radius: 16px;
-  width: fit-content;
-  margin: 0 auto;
-  padding: 4px 12px;
-}
-
-.skills-sub-title {
-  margin-top: 12px;
 }
 
 .skills-list {

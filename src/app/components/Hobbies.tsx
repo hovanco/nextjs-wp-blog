@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 
-import BilliardsPool from "../assets/images/co-billiardspool.jpg";
+import BilliardsPool from "../assets/images/co-billiard-pool.jpg";
 import FootballClub from "../assets/images/football-team.png";
 import BallInHand from "../assets/images/co-with-ball.jpg";
 import BadmintonClub from "../assets/images/badminton-team.png";
@@ -37,8 +37,13 @@ const hobbyList: Hobby[] = [
 
 const Hobbies: React.FC = () => {
   return (
-    <section className="hobbies-section">
-      <p className="section-title">Hobbies</p>
+    <section className="section hobbies-section">
+      <div className="section-head">
+        <p className="section-title">Hobbies</p>
+        <p className="section-sub-title">
+          Multi-sport enthusiast with a passion for competition and teamwork
+        </p>
+      </div>
       <div className="grid-container">
         {hobbyList.map((hobby, index) => (
           <figure key={index} className={`grid-item grid-item${index + 1}`}>

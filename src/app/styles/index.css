@@ -1,5 +1,6 @@
 @import url('reset.css');
 @import url('grid.css');
+@import url('common.css');
 @import url('./modules/index.css');
 @import url('./page/index.css');
 @import url('./partials/index.css');
