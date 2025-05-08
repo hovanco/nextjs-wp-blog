@@ -3,11 +3,13 @@ import DaNangCity from "../assets/images/da-nang-city.jpg";
 
 const Thanks = () => {
   return (
-    <section className="section thanks-section">
+    <section data-aos="fade-up" className="section thanks-section">
       <div className="container">
         <div className="thanks-content">
           <div className="thanks-desc">
-            <p className="thanks-message">THANK YOU!</p>
+            <p data-aos="fade-up" className="thanks-message">
+              THANK YOU!
+            </p>
           </div>
           <figure className="thanks-bg">
             <Image

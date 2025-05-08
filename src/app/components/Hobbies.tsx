@@ -43,8 +43,8 @@ const hobbyList: Hobby[] = [
 
 const Hobbies: React.FC = () => {
   return (
-    <section className="section hobbies-section">
-      <div className="section-head">
+    <section data-aos="fade-up" className="section hobbies-section">
+      <div data-aos="fade-up" className="section-head">
         <p className="section-title">Hobbies</p>
         <p className="section-sub-title">
           Multi-sport enthusiast with a passion for competition and teamwork
@@ -52,7 +52,11 @@ const Hobbies: React.FC = () => {
       </div>
       <div className="grid-container">
         {hobbyList.map((hobby, index) => (
-          <figure key={index} className={`grid-item grid-item${index + 1}`}>
+          <figure
+            data-aos="fade-up"
+            key={index}
+            className={`grid-item grid-item${index + 1}`}
+          >
             <Image
               className="hobby-img"
               src={hobby.image}
@@ -63,7 +67,7 @@ const Hobbies: React.FC = () => {
           </figure>
         ))}
       </div>
-      <div className="wrapper-video">
+      <div data-aos="fade-up" className="wrapper-video">
         <video className="football-video" controls>
           <source src="/dsc_full.mov" type="video/mp4" />
           Your browser does not support the video tag.
