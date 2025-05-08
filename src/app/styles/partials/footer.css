@@ -1,0 +1,21 @@
+.footer-section .social-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
+  margin-bottom: 26px;
+}
+
+.footer-section .copyright-text {
+  font-family: 'Heebo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #21243D;
+}
+
+.footer-section .social-icon {
+  cursor: pointer;
+}

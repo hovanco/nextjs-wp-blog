@@ -1,0 +1,28 @@
+.section {
+  padding: 40px 0;
+}
+
+.section-head {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.section-title {
+  margin-bottom: 18px;
+  font-family: 'Heebo';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 26px;
+  color: #FFFFFF;
+  padding: 0px 8px;
+  background: #142850;
+  border-radius: 6px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 4px 12px;
+}
+
+.section-sub-title {
+  margin-top: 12px;
+}
