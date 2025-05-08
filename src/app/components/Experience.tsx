@@ -41,9 +41,9 @@ const experienceList: experienceListType[] = [
 
 const Experience: React.FC = () => {
   return (
-    <section className="section experience-section">
+    <section data-aos="fade-up" className="section experience-section">
       <div className="container">
-        <div className="section-head">
+        <div data-aos="fade-up" className="section-head">
           <p className="section-title">Experience</p>
           <p className="section-sub-title">
             A selection of featured works, tools, and technologies that reflect
@@ -52,7 +52,7 @@ const Experience: React.FC = () => {
         </div>
         <div className="experience-list">
           {experienceList.map((item, index) => (
-            <div key={index} className="experience-item">
+            <div data-aos="fade-up" key={index} className="experience-item">
               <figure className="experience-img">
                 <Image
                   src={item?.image}

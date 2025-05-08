@@ -3,10 +3,10 @@ import CoAvatar from "../assets/images/co-avatar.jpeg";
 
 const AboutMe = () => {
   return (
-    <section className="section about-section">
+    <section data-aos="fade-up" className="section about-section">
       <div className="container">
         <div className="about-wrapper">
-          <div className="about-content">
+          <div data-aos="fade-up" className="about-content">
             <h1 className="about-title">Hi, I am Co</h1>
             <h2 className="about-role">Web Developer</h2>
             <p className="about-desc">
@@ -27,7 +27,7 @@ const AboutMe = () => {
               </a>
             </div>
           </div>
-          <div className="about-avatar">
+          <div data-aos="fade-up" className="about-avatar">
             <figure className="avatar-figure">
               <Image
                 className="avatar-img"

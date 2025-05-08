@@ -49,15 +49,15 @@ const skillList: Skill[] = [
 
 const SkillsComponent: React.FC = () => {
   return (
-    <section className="section skills-section">
+    <section data-aos="fade-up" className="section skills-section">
       <div className="container">
-        <div className="section-head">
+        <div data-aos="fade-up" className="section-head">
           <p className="section-title">IT Skills</p>
           <p className="section-sub-title">
             The skills, tools and technologies I am proficient in
           </p>
         </div>
-        <ul className="skills-list">
+        <ul data-aos="fade-up" className="skills-list">
           {skillList.map((item, index) => (
             <li key={index} className="skill-item">
               <Image
