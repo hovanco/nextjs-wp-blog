@@ -3,7 +3,7 @@ import Image from "next/image";
 import { BlogData } from "../types/posts";
 import { formatDate } from "../utils/date";
 import IconTime from "../assets/images/icon-time.png";
-import IconAuthor from "../assets/images/icon-author.png";
+import IconAuthor from "../assets/images/co-author.png";
 
 interface BlogItemProps {
   post: BlogData;
@@ -11,7 +11,7 @@ interface BlogItemProps {
 
 const BlogItem = ({ post }: BlogItemProps) => {
   return (
-    <article className="card-item">
+    <li data-aos="fade-up" className="col-4 col-small-12 card-item">
       <Link className="card-link" href={`/blog/${post?.slug}`}>
         <div className="card">
           <figure className="card-img">
@@ -23,14 +23,31 @@ const BlogItem = ({ post }: BlogItemProps) => {
             />
           </figure>
           <div className="card-content">
-            <h4 className="card-title">{post.title}</h4>
-            <p
-              className="card-sub-title"
-              dangerouslySetInnerHTML={{
-                __html: post?.excerpt || "",
-              }}
-            />
+            <div className="card-category">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {post?.categories?.map((category: any) => (
+                <div className="card-category-label" key={category?.id}>
+                  <span className="card-text-category">{category?.name}</span>
+                </div>
+              ))}
+            </div>
+            <p className="card-title">{post.title}</p>
             <div className="card-footer">
+              <div className="card-author">
+                <Image
+                  className="card-icon-author"
+                  src={IconAuthor?.src}
+                  alt="Icon Author"
+                  width={50}
+                  height={50}
+                />
+                <span
+                  className="card-text-author"
+                  dangerouslySetInnerHTML={{
+                    __html: post?.authorName || "",
+                  }}
+                />
+              </div>
               <div className="card-time">
                 <Image
                   className="card-icon-time"
@@ -46,34 +63,11 @@ const BlogItem = ({ post }: BlogItemProps) => {
                   }}
                 />
               </div>
-              <div className="card-author">
-                <Image
-                  className="card-icon-author"
-                  src={IconAuthor?.src}
-                  alt="Icon Author"
-                  width={14}
-                  height={14}
-                />
-                <span
-                  className="card-text-author"
-                  dangerouslySetInnerHTML={{
-                    __html: post?.authorName || "",
-                  }}
-                />
-              </div>
-            </div>
-            <div className="card-category">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {post?.categories?.map((category: any) => (
-                <div className="card-category-label" key={category?.id}>
-                  <span className="card-text-category">{category?.name}</span>
-                </div>
-              ))}
             </div>
           </div>
         </div>
       </Link>
-    </article>
+    </li>
   );
 };
 

@@ -7,7 +7,7 @@ import { formatDate } from "@/app/utils/date";
 import { fetchPostDetail } from "@/app/utils/fetchPostDetail";
 import { withMinLoading } from "@/app/utils/withMinLoading";
 import IconTime from "../../assets/images/icon-time.png";
-import IconAuthor from "../../assets/images/icon-author.png";
+import IconAuthor from "../../assets/images/co-author.png";
 
 const BlogDetail = () => {
   const { slug } = useParams();

@@ -1,6 +1,4 @@
 .experience-section .experience-title {
-  font-family: 'Heebo';
-  font-style: normal;
   font-weight: 700;
   font-size: 30px;
   line-height: 44px;
@@ -9,8 +7,6 @@
 }
 
 .experience-section .experience-desc {
-  font-family: 'Heebo';
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
@@ -18,8 +14,6 @@
 }
 
 .experience-section .experience-label-text {
-  font-family: 'Heebo';
-  font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 29px;
@@ -30,8 +24,6 @@
   align-items: center;
   justify-content: center;
   margin-right: 30px;
-  font-family: 'Heebo';
-  font-style: normal;
   font-weight: 900;
   font-size: 18px;
   line-height: 26px;
