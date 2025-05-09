@@ -17,6 +17,10 @@
   color: #21243D;
 }
 
+.about-section .about-title {
+  margin-bottom: 0;
+}
+
 .about-section .about-role {
   margin-bottom: 12px;
 }

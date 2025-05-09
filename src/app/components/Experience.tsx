@@ -69,7 +69,6 @@ const Experience: React.FC = () => {
                       {item?.dateRange}
                     </time>
                   </div>
-                  <p className="experience-label-text">{item?.title}</p>
                 </div>
                 <p className="experience-desc">{item?.description}</p>
               </div>

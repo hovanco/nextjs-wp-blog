@@ -1,24 +1,75 @@
 @import "tailwindcss";
 
+/* here */
 :root {
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Lora', serif;
   --font-ui: 'Inter', sans-serif;
+
+  /* Optional - color variables (suggested) */
+  --color-text: #1a1a1a;
+  --color-muted: #666;
+  --color-primary: #0f172a;
+  --color-accent: #2563eb;
+  --color-bg: #ffffff;
+  --color-border: #e5e7eb;
 }
 
+/* Headings */
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+  color: var(--color-text);
 }
 
+h1 {
+  font-size: 2.25rem;
+  /* 36px */
+}
+
+h2 {
+  font-size: 1.875rem;
+  /* 30px */
+}
+
+h3 {
+  font-size: 1.5rem;
+  /* 24px */
+}
+
+h4 {
+  font-size: 1.25rem;
+  /* 20px */
+}
+
+h5 {
+  font-size: 1.125rem;
+  /* 18px */
+}
+
+h6 {
+  font-size: 1rem;
+  /* 16px */
+}
+
+/* Paragraph & article */
 p,
 article {
   font-family: var(--font-body);
   font-size: 1.1rem;
   line-height: 1.75;
+  color: var(--color-text);
+  margin-bottom: 1em;
 }
 
+/* Navigation, buttons, small text */
 nav,
 button,
 small {
@@ -26,14 +77,60 @@ small {
   font-size: 0.9rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  color: var(--color-muted);
 }
 
+/* Span, time, labels */
 span,
-time {
+time,
+label {
   font-family: var(--font-ui);
   font-size: 0.9rem;
   letter-spacing: 0.03em;
   text-transform: capitalize;
+  color: var(--color-muted);
+}
+
+/* Inputs, textareas */
+input,
+textarea,
+select {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  border: 1px solid var(--color-border);
+  padding: 0.5em 0.75em;
+  border-radius: 0.25rem;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* Links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+
+/* Blockquote */
+blockquote {
+  font-family: var(--font-body);
+  font-style: italic;
+  border-left: 4px solid var(--color-border);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: var(--color-muted);
+}
+
+/* Code and pre */
+code,
+pre {
+  font-family: 'Fira Code', monospace;
+  background: #f9fafb;
+  color: #1e293b;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.95rem;
 }
 
 

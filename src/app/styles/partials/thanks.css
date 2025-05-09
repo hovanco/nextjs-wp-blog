@@ -4,6 +4,9 @@
 
 .thanks-section .thanks-content {
   position: relative;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #E8E8EA;
 }
 
 .thanks-section .thanks-desc {
@@ -36,9 +39,15 @@
 
 @media (max-width: 480px) {
   .thanks-section .thanks-message {
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.01em;
+  }
+}
+
+@media (max-width: 425px) {
+  .thanks-section .thanks-message {
+    font-size: 2.5rem;
   }
 }

@@ -1,3 +1,7 @@
+.experience-section .container {
+  max-width: 920px;
+}
+
 .experience-section .experience-title {
   font-weight: 700;
   font-size: 30px;
@@ -20,17 +24,10 @@
 }
 
 .experience-section .experience-label-year {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 30px;
-  font-weight: 900;
+  color: #000000;
   font-size: 18px;
+  font-weight: 900;
   line-height: 26px;
-  color: #FFFFFF;
-  padding: 4px 12px;
-  gap: 10px;
-  background: #212F3F;
 }
 
 .experience-section .experience-item {
@@ -40,6 +37,10 @@
   gap: 20px;
   align-items: center;
   border-bottom: 1px solid #E5E5EA;
+}
+
+.experience-section .experience-item:last-child {
+  border-bottom: none;
 }
 
 .experience-section .experience-list {
@@ -56,6 +57,9 @@
   width: 100%;
   height: 100%;
   max-width: 250px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #E8E8EA;
 }
 
 .experience-section .experience-img>img {

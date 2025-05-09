@@ -49,22 +49,17 @@ const BlogDetail = () => {
                 className="title"
                 dangerouslySetInnerHTML={{ __html: blogDetail?.title || "" }}
               />
+              <div className="category">
+                {/* Disable no-explicit-any rule for this line */}
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {blogDetail?.categories?.map((category: any) => (
+                  <div className="card-category-label" key={category?.id}>
+                    <span className="card-text-category">{category?.name}</span>
+                  </div>
+                ))}
+                {/* eslint-enable @typescript-eslint/no-explicit-any */}
+              </div>
               <div className="detail-meta">
-                <div className="card-time">
-                  <Image
-                    className="card-icon-time"
-                    src={IconTime?.src}
-                    alt="Icon Time"
-                    width={14}
-                    height={14}
-                  />
-                  <time
-                    className="card-text-time"
-                    dangerouslySetInnerHTML={{
-                      __html: formatDate(blogDetail?.date || ""),
-                    }}
-                  />
-                </div>
                 <div className="card-author">
                   <Image
                     className="card-icon-author"
@@ -80,16 +75,21 @@ const BlogDetail = () => {
                     }}
                   />
                 </div>
-              </div>
-              <div className="category">
-                {/* Disable no-explicit-any rule for this line */}
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {blogDetail?.categories?.map((category: any) => (
-                  <div className="card-category-label" key={category?.id}>
-                    <span className="card-text-category">{category?.name}</span>
-                  </div>
-                ))}
-                {/* eslint-enable @typescript-eslint/no-explicit-any */}
+                <div className="card-time">
+                  <Image
+                    className="card-icon-time"
+                    src={IconTime?.src}
+                    alt="Icon Time"
+                    width={14}
+                    height={14}
+                  />
+                  <time
+                    className="card-text-time"
+                    dangerouslySetInnerHTML={{
+                      __html: formatDate(blogDetail?.date || ""),
+                    }}
+                  />
+                </div>
               </div>
               <div
                 className="blog-detail-content"
