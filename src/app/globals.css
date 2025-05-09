@@ -1,29 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Lora', serif;
+  --font-ui: 'Inter', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+h1,
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+p,
+article {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.75;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Heebo';
+nav,
+button,
+small {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
+
+span,
+time {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  text-transform: capitalize;
+}
+
 
 nextjs-portal {
   display: none !important;

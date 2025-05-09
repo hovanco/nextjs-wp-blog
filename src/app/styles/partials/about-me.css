@@ -11,8 +11,6 @@
 
 .about-section .about-title,
 .about-section .about-role {
-  font-family: 'Heebo';
-  font-style: normal;
   font-weight: 700;
   font-size: 44px;
   line-height: 60px;
@@ -30,8 +28,6 @@
 .about-section .resume-btn {
   width: 167px;
   height: 29px;
-  font-family: 'Heebo';
-  font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 29px;
@@ -44,7 +40,7 @@
   align-items: center;
   padding: 10px 18px;
   gap: 10px;
-  width: 203px;
+  width: fit-content;
   height: 49px;
   background: linear-gradient(114.44deg, #ff7a09 0, #ffa85f 100%);
   border-radius: 6px;

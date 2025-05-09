@@ -93,14 +93,18 @@ const BlogList = ({ posts, isLoading }: BlogListProps) => {
           </article>
         </section>
       ) : (
-        <section className="posts-list">
-          {posts.length > 0 ? (
-            posts.map((post) => <BlogItem key={post.id} post={post} />)
-          ) : (
-            <div className="no-results">
-              <p className="results-title">No posts available.</p>
-            </div>
-          )}
+        <section className="posts-list-section">
+          <div className="container">
+            <ul className="row">
+              {posts.length > 0 ? (
+                posts.map((post) => <BlogItem key={post.id} post={post} />)
+              ) : (
+                <div className="no-results">
+                  <p className="results-title">No posts available.</p>
+                </div>
+              )}
+            </ul>
+          </div>
         </section>
       )}
     </>
