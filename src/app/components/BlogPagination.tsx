@@ -42,7 +42,7 @@ const BlogPagination = ({
       <div className="container">
         <div className="pagination">
           <button onClick={handlePrevClick} disabled={currentPage === 1}>
-            Previous
+            Prev
           </button>
           {renderPaginationItems()}
           <button

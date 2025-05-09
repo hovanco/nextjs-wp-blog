@@ -23,6 +23,11 @@ h1 {
   background: #FFFFFF;
   border: 1px solid #E8E8EA;
   border-radius: 12px;
+  transition: 0.3s;
+}
+
+.card-link:hover {
+  transform: scale(1.02, 1.02);
 }
 
 .card-img>img {
@@ -51,6 +56,7 @@ h1 {
   font-size: 20px;
   font-weight: 700;
   line-height: 1.5;
+  text-transform: capitalize;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -85,7 +91,7 @@ span {
 .card-footer {
   margin-top: 20px;
   display: flex;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
 }
 
@@ -96,7 +102,7 @@ span {
 
 .card-icon-time {
   margin-top: -2px;
-  width: 14px;
+  width: 16.67px;
 }
 
 .card-text-time {
@@ -133,7 +139,7 @@ span {
   font-size: 0.75rem;
   font-weight: 600;
   border-radius: 6px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 0.03em;
   color: #ffffff;
   background-color: #000000;
@@ -172,7 +178,7 @@ span {
   width: 100%;
   height: 20px;
   background: #e0e0e0;
-  border-radius: 4px;
+  border-radius: 6px;
   animation: shimmer 1.5s infinite linear;
 }
 
@@ -242,7 +248,7 @@ span {
   aspect-ratio: 16 / 9;
   max-width: 200px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .skeleton-text.skeleton-border {
@@ -263,11 +269,11 @@ span {
 
 .search-container .search-box {
   height: 50px;
-  border-radius: 4px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   padding: 20px;
-  border: 1px solid #f2f2f2;
+  border: 1px solid;
   background-color: #f2f2f2;
   margin-bottom: 20px;
 }
@@ -388,16 +394,24 @@ button.close-icon {
 .category-item {
   width: 100%;
   border: 1px solid;
-  padding: 6px;
+  padding: 12px 6px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
+.category-item:hover {
+  background-color: #f2f2f2;
+}
+
 .category-item.active {
-  background: #f2f2f2;
+  background-color: #000000;
+}
+
+.category-item.active>span {
+  color: #FFFFFF;
 }
 
 /* end category */
@@ -435,10 +449,14 @@ button.close-icon {
 }
 
 .pagination button {
-  padding: 8px 16px;
+  padding: 4px;
   margin: 0 5px;
   cursor: pointer;
   border: none;
+  text-transform: capitalize;
+  min-width: 50px;
+  border-radius: 6px;
+  border: 1px solid #000000;
   background-color: #f1f1f1;
   transition: background-color 0.3s;
 }
@@ -450,10 +468,6 @@ button.close-icon {
 .pagination button:disabled {
   cursor: not-allowed;
   background-color: #e1e1e1;
-}
-
-.btn-next {
-  min-width: 107.34px;
 }
 
 /* blog-wrapper */
@@ -486,12 +500,21 @@ button.close-icon {
 
 .pin-link {
   width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid #E8E8EA;
+  transition: 0.3s;
+}
+
+.pin-link:hover {
+  transform: scale(1.02, 1.02);
 }
 
 .pin-img>img {
   width: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .pin-content {
@@ -517,10 +540,6 @@ button.close-icon {
   bottom: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  /* background: #C33764;
-  background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)), url("https://bit.ly/2rlzaXi");
-  background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)), url("https://bit.ly/2rlzaXi"); */
 }
 
 .pin-cate-name {
@@ -528,7 +547,7 @@ button.close-icon {
   font-size: 0.75rem;
   font-weight: 600;
   border-radius: 6px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 0.03em;
   color: #ffffff;
   background-color: #000000;
@@ -545,6 +564,7 @@ button.close-icon {
   font-size: 36px;
   line-height: 40px;
   color: #FFFFFF;
+  text-transform: capitalize;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -653,4 +673,10 @@ section.post-pin {
   section.post-pin {
     display: none;
   }
+
+  .category-item:hover {
+    color: #FFFFFF;
+    background-color: #000000;
+  }
+
 }

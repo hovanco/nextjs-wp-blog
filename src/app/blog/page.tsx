@@ -241,7 +241,7 @@ const Blog = () => {
               />
             ) : null}
           </div>
-          <div className="blog-cta">
+          <div data-aos="fade-up" className="blog-cta">
             <SearchBar
               onSearch={getSearchPosts}
               activeCategory={activeCategory}
