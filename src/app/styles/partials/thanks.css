@@ -5,7 +5,7 @@
 .thanks-section .thanks-content {
   position: relative;
   padding: 16px;
-  border-radius: 12px;
+  border-radius: 4px;
   border: 1px solid #E8E8EA;
 }
 
@@ -33,7 +33,6 @@
 .thanks-section .thanks-bg {
   width: 100%;
   height: auto;
-  border-radius: 6px;
   object-fit: cover;
 }
 

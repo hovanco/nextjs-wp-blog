@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import IconAuthor from "../assets/images/co-author.png";
 import { formatDate } from "../utils/date";
+import Footer from "../components/Footer";
 
 const Blog = () => {
   const postsPerPage: number = 12;
@@ -143,118 +144,96 @@ const Blog = () => {
   }, [currentPage, activeCategory]);
 
   return (
-    <main id="blog-page">
-      <div className="container">
-        <section data-aos="fade-up" className="post-pin">
-          {posts.length > 0 && (
-            <Link
-              data-aos="fade-up"
-              className="pin-link"
-              href={`/blog/${posts[0]?.slug}`}
-            >
-              <div className="pin-wrapper">
-                <figure className="pin-img">
-                  <Image
-                    alt="Post Image"
-                    width={1920}
-                    height={1080}
-                    src={posts[0]?.postImage || ""}
-                  />
-                </figure>
-                <div className="pin-overlay"></div>
-                <div className="pin-content">
-                  <div className="pin-cate">
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    {posts[0]?.categories?.map((category: any) => (
-                      <div className="pin-cate-label" key={category?.id}>
-                        <span className="pin-cate-name">{category?.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <h1 className="pin-title">{posts[0]?.title}</h1>
-                  {/* <h1
-                    className="pin-sub-title"
-                    dangerouslySetInnerHTML={{
-                      __html: posts[0]?.excerpt || "",
-                    }}
-                  /> */}
-                  <div className="pin-footer">
-                    <div className="pin-author">
-                      <Image
-                        className="pin-icon-author"
-                        src={IconAuthor?.src}
-                        alt="Icon Author"
-                        width={36}
-                        height={36}
-                      />
-                      <span
-                        className="pin-text-author"
-                        dangerouslySetInnerHTML={{
-                          __html: posts[0]?.authorName || "",
-                        }}
-                      />
+    <>
+      <main id="blog-page">
+        <div className="container">
+          <section data-aos="fade-up" className="post-pin">
+            {posts.length > 0 && (
+              <Link
+                data-aos="fade-up"
+                className="pin-link"
+                href={`/blog/${posts[0]?.slug}`}
+              >
+                <div className="pin-wrapper">
+                  <figure className="pin-img">
+                    <Image
+                      alt="Post Image"
+                      width={1920}
+                      height={1080}
+                      src={posts[0]?.postImage || ""}
+                    />
+                  </figure>
+
+                  <div className="pin-overlay"></div>
+                  <div className="pin-content">
+                    <div className="pin-cate">
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      {posts[0]?.categories?.map((category: any) => (
+                        <div className="pin-cate-label" key={category?.id}>
+                          <span className="pin-cate-name">
+                            {category?.name}
+                          </span>
+                        </div>
+                      ))}
                     </div>
-                    <div className="pin-time">
-                      {/* <Image
-                        className="pin-icon-time"
-                        src={IconTime?.src}
-                        width={14}
-                        height={14}
-                        alt="Icon Time"
-                      /> */}
-                      <svg
-                        className="pin-icon-time"
-                        width="800px"
-                        height="800px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM11.8284 6.75736C12.3807 6.75736 12.8284 7.20507 12.8284 7.75736V12.7245L16.3553 14.0653C16.8716 14.2615 17.131 14.8391 16.9347 15.3553C16.7385 15.8716 16.1609 16.131 15.6447 15.9347L11.4731 14.349C11.085 14.2014 10.8284 13.8294 10.8284 13.4142V7.75736C10.8284 7.20507 11.2761 6.75736 11.8284 6.75736Z"
-                          fill="currentColor"
+                    <h1 className="pin-title">{posts[0]?.title}</h1>
+                    <div className="pin-footer">
+                      <div className="pin-author">
+                        <Image
+                          className="pin-icon-author"
+                          src={IconAuthor?.src}
+                          alt="Icon Author"
+                          width={36}
+                          height={36}
                         />
-                      </svg>
-                      <time
-                        className="pin-text-time"
-                        dangerouslySetInnerHTML={{
-                          __html: formatDate(posts[0]?.date || ""),
-                        }}
-                      />
+                        <span
+                          className="pin-text-author"
+                          dangerouslySetInnerHTML={{
+                            __html: posts[0]?.authorName || "",
+                          }}
+                        />
+                      </div>
+                      <div className="pin-time">
+                        <time
+                          className="pin-text-time"
+                          dangerouslySetInnerHTML={{
+                            __html: formatDate(posts[0]?.date || ""),
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          )}
-        </section>
-        <div className="blog-wrapper">
-          <div className="blog-content">
-            <BlogList posts={posts} isLoading={isLoading} />
-            {posts.length > 0 && totalPages > 1 ? (
-              <BlogPagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
+              </Link>
+            )}
+          </section>
+          <div className="blog-wrapper">
+            <div className="blog-content">
+              <BlogList posts={posts} isLoading={isLoading} />
+              {posts.length > 0 && totalPages > 1 ? (
+                <BlogPagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              ) : null}
+            </div>
+            <div className="blog-cta">
+              <SearchBar
+                onSearch={getSearchPosts}
+                activeCategory={activeCategory}
               />
-            ) : null}
-          </div>
-          <div data-aos="fade-up" className="blog-cta">
-            <SearchBar
-              onSearch={getSearchPosts}
-              activeCategory={activeCategory}
-            />
-            <CategoryList
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryClick={handleCategoryClick}
-            />
+              <CategoryList
+                categories={categories}
+                activeCategory={activeCategory}
+                onCategoryClick={handleCategoryClick}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 };
 
