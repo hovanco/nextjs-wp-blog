@@ -37,7 +37,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   }, [activeCategory]);
 
   return (
-    <form onSubmit={handleSearch} className="flex items-center">
+    <form onSubmit={handleSearch}>
       <div className="search-container">
         <div className="search-box">
           <button

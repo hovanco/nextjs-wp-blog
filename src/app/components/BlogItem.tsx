@@ -40,12 +40,13 @@ const BlogItem = ({ post }: BlogItemProps) => {
                   width={50}
                   height={50}
                 />
-                <span
+                <span className="card-text-author">Co.Ho</span>
+                {/* <span
                   className="card-text-author"
                   dangerouslySetInnerHTML={{
                     __html: post?.authorName || "",
                   }}
-                />
+                /> */}
               </div>
               <div className="card-time">
                 <time

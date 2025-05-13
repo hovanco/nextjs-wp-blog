@@ -218,17 +218,19 @@ const Blog = () => {
                 />
               ) : null}
             </div>
-            <div className="blog-cta">
-              <SearchBar
-                onSearch={getSearchPosts}
-                activeCategory={activeCategory}
-              />
-              <CategoryList
-                categories={categories}
-                activeCategory={activeCategory}
-                onCategoryClick={handleCategoryClick}
-              />
-            </div>
+            {categories.length > 0 && (
+              <div data-aos="fade-up" className="blog-cta">
+                <SearchBar
+                  onSearch={getSearchPosts}
+                  activeCategory={activeCategory}
+                />
+                <CategoryList
+                  categories={categories}
+                  activeCategory={activeCategory}
+                  onCategoryClick={handleCategoryClick}
+                />
+              </div>
+            )}
           </div>
         </div>
       </main>
