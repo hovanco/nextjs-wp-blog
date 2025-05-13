@@ -71,12 +71,13 @@ const BlogDetail = () => {
                       width={50}
                       height={50}
                     />
-                    <span
+                    <span className="card-text-author">Co.Ho</span>
+                    {/* <span
                       className="card-text-author"
                       dangerouslySetInnerHTML={{
                         __html: blogDetail?.authorName || "",
                       }}
-                    />
+                    /> */}
                   </div>
                   <div className="card-time">
                     <time
