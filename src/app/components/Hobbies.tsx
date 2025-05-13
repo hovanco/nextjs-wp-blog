@@ -69,7 +69,7 @@ const Hobbies: React.FC = () => {
       </div>
       <div data-aos="fade-up" className="wrapper-video">
         <video className="football-video" controls>
-          <source src="/dsc_full.mov" type="video/mp4" />
+          <source src="/dsc_full.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
