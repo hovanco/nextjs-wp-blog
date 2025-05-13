@@ -4,7 +4,6 @@
 
 .blog-detail-page h1 {
   font-size: 48px;
-  /* line-height: 1; */
 }
 
 .blog-detail-page h2,
@@ -88,7 +87,7 @@
 }
 
 .blog-detail-page .category {
-  margin: 8px 0;
+  margin: 8px 0 20px;
   display: flex;
   gap: 16px;
 }
@@ -118,12 +117,14 @@
   margin-left: 8px;
 }
 
-.blog-detail-page .card-icon-author {
-  width: 14px;
-}
-
 .blog-detail-page .card-text-author {
   margin-left: 8px;
+}
+
+@media (max-width: 480px) {
+  .blog-detail-page h1 {
+    font-size: 24px;
+  }
 }
 
 /* start skeleton */

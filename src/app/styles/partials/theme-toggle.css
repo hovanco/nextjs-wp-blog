@@ -52,7 +52,15 @@
   border-radius: 50%;
 }
 
+.sun>svg {
+  color: var(--primary-text);
+}
+
 .moon {
   background-color: rgba(246, 247, 249, .05);
   border-radius: 50%;
 }
+
+/* .moon>svg {
+  color: var(--primary-text);
+} */

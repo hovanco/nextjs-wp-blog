@@ -1,51 +1,52 @@
-/* @import "tailwindcss"; */
-
 :root {
   --font-heading: 'Work Sans', sans-serif;
   --font-body: 'Work Sans', sans-serif;
   --font-ui: 'Work Sans', sans-serif;
 
-
   --font-size-base: 16px;
   --font-size-heading: 2rem;
   --font-size-subheading: 1.25rem;
 
+  --color-white: #FFFFFF;
+  --color-dark: #181A2A;
+  --color-pagination-btn: #CCCCCC;
 
-  --color-text: #1a1a1a;
-  --color-muted: #666;
-  --color-primary: #0f172a;
-  --color-accent: #2563eb;
-  --color-bg: #FFFFFF;
-  --color-border: #e5e7eb;
-  --color-text-label: #FFFFFF;
-  --color-bg-label: #000000;
-  --color-text-title: #FFFFFF;
-  --color-text-author: #FFFFFF;
-  --color-text-time: #FFFFFF;
-  --color-text-title-card: #181A2A;
-  --color-text-label-card: #97989F;
-  --color-text-time-card: #97989F;
-  --color-border-search: #CCCCCC;
-  --color-bg-search: #F2F2F2;
-  --font-16: 1rem;
+  --primary-text: #181A2A;
+  --secondary-text: #FFFFFF;
+
+  --pin-label-bg: #181A2A;
+  --pin-label-text: #FFFFFF;
+  --pin-title: #FFFFFF;
+  --pin-post-meta: #FFFFFF;
+
+  --card-label-bg: #181A2A;
+  --card-label-text: #FFFFFF;
+  --card-title: #181A2A;
+  --card-post-meta: #181A2A;
+  --card-border: #E8E8EA;
+
+  --search-bg: #F2F2F2;
+  --search-border: #CCCCCC;
 }
 
-
 [data-theme="dark"] {
-  --color-text: #f4f4f4;
-  --color-muted: #a1a1aa;
-  --color-primary: #e2e8f0;
-  --color-accent: #60a5fa;
-  --color-bg: #181A2A;
-  --color-border: #334155;
+  --primary-text: #FFFFFF;
+  --secondary-text: #181A2A;
+
+  --pin-label-bg: #FFFFFF;
+  --pin-label-text: #181A2A;
+
+  --card-title: #FFFFFF;
+  --card-post-meta: #FFFFFF;
+  --card-border: #242535;
+  --card-label-bg: #FFFFFF;
+  --card-label-text: #181A2A;
 }
 
 html {
   font-family: var(--font-body);
   font-size: var(--font-size-base);
   line-height: 1.6;
-  background-color: #fff;
-  color: #111;
 }
 
 body {
@@ -57,7 +58,8 @@ body {
   background-color: var(--color-bg);
   font-family: var(--font-body);
   font-size: var(--font-16);
-  color: var(--color-text);
+  color: var(--primary-text);
+  background: var(--secondary-text);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -68,53 +70,45 @@ h3,
 h4,
 h5,
 h6 {
+  margin-bottom: 0.5em;
   font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 0.5em;
-  color: var(--color-text);
 }
 
 h1 {
   font-size: 2.25rem;
-
 }
 
 h2 {
   font-size: 1.875rem;
-
 }
 
 h3 {
   font-size: 1.5rem;
-
 }
 
 h4 {
   font-size: 1.25rem;
-
 }
 
 h5 {
   font-size: 1.125rem;
-
 }
 
 h6 {
   font-size: 1rem;
-
 }
 
 
 p,
 article {
+  margin-bottom: 1em;
   font-family: var(--font-body);
   font-size: 1.1rem;
   line-height: 1.75;
-  color: var(--color-text);
-  margin-bottom: 1em;
-}
 
+}
 
 nav,
 button,
@@ -123,7 +117,6 @@ small {
   font-size: 0.9rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: var(--color-muted);
 }
 
 
@@ -134,52 +127,64 @@ label {
   font-size: 0.9rem;
   letter-spacing: 0.03em;
   text-transform: capitalize;
-  color: var(--color-muted);
 }
 
 
 input,
 textarea,
 select {
+  padding: 0.5em 0.75em;
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.5;
-  border: 1px solid var(--color-border);
-  padding: 0.5em 0.75em;
-  color: var(--color-text);
-  background-color: var(--color-bg);
 }
 
 
 a {
-  color: var(--color-accent);
   text-decoration: none;
 }
 
 
-
 blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
   font-family: var(--font-body);
   font-style: italic;
-  border-left: 4px solid var(--color-border);
-  padding-left: 1rem;
-  margin: 1.5rem 0;
-  color: var(--color-muted);
 }
 
 code,
 pre {
-  font-family: 'Fira Code', monospace;
-  background: #f9fafb;
-  color: #1e293b;
   padding: 0.2em 0.4em;
-  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
   font-size: 0.95rem;
+  border-radius: 4px;
 }
 
 button {
   border: none;
   outline: none;
+  background: none;
+}
+
+.section {
+  padding: 40px 0;
+}
+
+.section-head {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.section-title {
+  margin: 0 auto 18px;
+  padding: 4px 12px;
+  width: fit-content;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 26px;
+  border-radius: 4px;
+  color: var(--secondary-text);
+  background: var(--primary-text);
 }
 
 nextjs-portal {
