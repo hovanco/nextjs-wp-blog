@@ -74,6 +74,7 @@
   .experience-section .experience-item {
     flex-wrap: wrap;
     height: 100%;
+    border-bottom: none;
   }
 }
 

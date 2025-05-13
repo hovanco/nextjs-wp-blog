@@ -40,7 +40,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <form onSubmit={handleSearch} className="flex items-center">
       <div className="search-container">
         <div className="search-box">
-          <button type="submit" className="search-button">
+          <button
+            aria-label="Search button"
+            type="submit"
+            className="search-button"
+          >
             <Image
               className="search-icon"
               src={IconSearch.src}
@@ -51,6 +55,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </button>
           <div className="search-wrapper-input">
             <input
+              aria-label="Search input"
               className="search-input"
               type="text"
               name="search"

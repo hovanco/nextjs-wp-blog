@@ -68,8 +68,8 @@ const BlogDetail = () => {
                       className="card-icon-author"
                       src={IconAuthor?.src}
                       alt="Icon Author"
-                      width={14}
-                      height={14}
+                      width={50}
+                      height={50}
                     />
                     <span
                       className="card-text-author"

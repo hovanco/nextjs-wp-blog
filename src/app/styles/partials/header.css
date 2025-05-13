@@ -3,13 +3,9 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background: #FFFFFF;
+  background: var(--secondary-text);
   z-index: 100;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-}
-
-html[data-theme="dark"] header {
-  background: #181A2A;
 }
 
 header .header-nav {
@@ -22,9 +18,10 @@ header .header-nav {
 }
 
 header .header-logo {
+  color: var(--color-text-title-card);
   font-size: 36px;
-  line-height: 1.5;
   font-weight: 700;
+  line-height: 1.5;
 }
 
 .header-content {
@@ -35,24 +32,18 @@ header .header-logo {
   gap: 50px;
 }
 
-
-
-
-
 header .header-menu {
   display: flex;
   gap: 20px;
 }
 
 header .header-item.is-active .header-link {
-  color: #000000;
-}
-
-html[data-theme="dark"] header .header-item.is-active .header-link {
-  color: #FFFFFF;
+  font-weight: 500;
+  text-decoration: underline;
 }
 
 header .header-link {
+  color: var(--color-text-title-card);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;

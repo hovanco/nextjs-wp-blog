@@ -2,6 +2,19 @@
   background-color: #EDF7FA;
 }
 
+[data-theme="dark"] .skills-section {
+  background: var(--secondary-text);
+}
+
+[data-theme="dark"] .skills-section .section-title {
+  color: var(--secondary-text);
+  background: var(--primary-text);
+}
+
+[data-theme="dark"] .skills-section .section-sub-title {
+  color: var(--primary-text);
+}
+
 .skills-list {
   display: flex;
   justify-content: center;
@@ -9,10 +22,14 @@
   gap: 30px;
   max-width: 750px;
   margin: 0 auto;
-  background: #ffffff;
+  background: var(--secondary-text);
   padding: 20px 24px;
   border-radius: 4px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+[data-theme="dark"] .skills-list {
+  box-shadow: none;
 }
 
 .skill-item {

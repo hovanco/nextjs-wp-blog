@@ -45,6 +45,7 @@ const BlogPagination = ({
             className="pagination-item "
             onClick={handlePrevClick}
             disabled={currentPage === 1}
+            aria-label="Previous button"
           >
             <svg
               className="pagination-icon"
@@ -57,9 +58,9 @@ const BlogPagination = ({
               <g
                 id="Page-1"
                 stroke="none"
-                stroke-width="1"
+                strokeWidth="1"
                 fill="none"
-                fill-rule="evenodd"
+                fillRule="evenodd"
               >
                 <g
                   id="Dribbble-Light-Preview"
@@ -81,6 +82,7 @@ const BlogPagination = ({
             className="pagination-item "
             onClick={handleNextClick}
             disabled={currentPage === totalPages}
+            aria-label="Next button"
           >
             <svg
               className="pagination-icon"
@@ -93,9 +95,9 @@ const BlogPagination = ({
               <g
                 id="Page-1"
                 stroke="none"
-                stroke-width="1"
+                strokeWidth="1"
                 fill="none"
-                fill-rule="evenodd"
+                fillRule="evenodd"
               >
                 <g
                   id="Dribbble-Light-Preview"
