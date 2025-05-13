@@ -186,12 +186,13 @@ const Blog = () => {
                           width={36}
                           height={36}
                         />
-                        <span
+                        <span className="pin-text-author">Co.Ho</span>
+                        {/* <span
                           className="pin-text-author"
                           dangerouslySetInnerHTML={{
                             __html: posts[0]?.authorName || "",
                           }}
-                        />
+                        /> */}
                       </div>
                       <div className="pin-time">
                         <time
