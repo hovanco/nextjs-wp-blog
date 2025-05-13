@@ -14,7 +14,6 @@
   font-weight: 700;
   font-size: 44px;
   line-height: 60px;
-  color: #21243D;
 }
 
 .about-section .about-title {
@@ -47,7 +46,7 @@
   width: fit-content;
   height: 49px;
   background: linear-gradient(114.44deg, #ff7a09 0, #ffa85f 100%);
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .about-section .resume-btn:hover {

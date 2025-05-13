@@ -6,8 +6,8 @@ import { BlogData } from "@/app/types/posts";
 import { formatDate } from "@/app/utils/date";
 import { fetchPostDetail } from "@/app/utils/fetchPostDetail";
 import { withMinLoading } from "@/app/utils/withMinLoading";
-import IconTime from "../../assets/images/icon-time.png";
 import IconAuthor from "../../assets/images/co-author.png";
+import Footer from "@/app/components/Footer";
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -40,79 +40,77 @@ const BlogDetail = () => {
   }, [slug]);
 
   return (
-    <main className="blog-detail-page">
-      <div className="detail-page">
-        <div className="container">
-          {!isLoading && blogDetail ? (
-            <>
-              <h1
-                className="title"
-                dangerouslySetInnerHTML={{ __html: blogDetail?.title || "" }}
-              />
-              <div className="category">
-                {/* Disable no-explicit-any rule for this line */}
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {blogDetail?.categories?.map((category: any) => (
-                  <div className="card-category-label" key={category?.id}>
-                    <span className="card-text-category">{category?.name}</span>
+    <>
+      <main className="blog-detail-page">
+        <div className="detail-page">
+          <div className="container">
+            {!isLoading && blogDetail ? (
+              <>
+                <h1
+                  className="title"
+                  dangerouslySetInnerHTML={{ __html: blogDetail?.title || "" }}
+                />
+                <div className="category">
+                  {/* Disable no-explicit-any rule for this line */}
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  {blogDetail?.categories?.map((category: any) => (
+                    <div className="card-category-label" key={category?.id}>
+                      <span className="card-text-category">
+                        {category?.name}
+                      </span>
+                    </div>
+                  ))}
+                  {/* eslint-enable @typescript-eslint/no-explicit-any */}
+                </div>
+                <div className="detail-meta">
+                  <div className="card-author">
+                    <Image
+                      className="card-icon-author"
+                      src={IconAuthor?.src}
+                      alt="Icon Author"
+                      width={14}
+                      height={14}
+                    />
+                    <span
+                      className="card-text-author"
+                      dangerouslySetInnerHTML={{
+                        __html: blogDetail?.authorName || "",
+                      }}
+                    />
                   </div>
-                ))}
-                {/* eslint-enable @typescript-eslint/no-explicit-any */}
-              </div>
-              <div className="detail-meta">
-                <div className="card-author">
-                  <Image
-                    className="card-icon-author"
-                    src={IconAuthor?.src}
-                    alt="Icon Author"
-                    width={14}
-                    height={14}
-                  />
-                  <span
-                    className="card-text-author"
-                    dangerouslySetInnerHTML={{
-                      __html: blogDetail?.authorName || "",
-                    }}
-                  />
+                  <div className="card-time">
+                    <time
+                      className="card-text-time"
+                      dangerouslySetInnerHTML={{
+                        __html: formatDate(blogDetail?.date || ""),
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="card-time">
-                  <Image
-                    className="card-icon-time"
-                    src={IconTime?.src}
-                    alt="Icon Time"
-                    width={14}
-                    height={14}
-                  />
-                  <time
-                    className="card-text-time"
-                    dangerouslySetInnerHTML={{
-                      __html: formatDate(blogDetail?.date || ""),
-                    }}
-                  />
-                </div>
+                <div
+                  className="blog-detail-content"
+                  dangerouslySetInnerHTML={{
+                    __html: blogDetail?.content || "",
+                  }}
+                />
+              </>
+            ) : (
+              <div className="skeleton-wrapper">
+                <div className="skeleton-text skeleton-title"></div>
+                <div className="skeleton-text skeleton-date-author"></div>
+                <div className="skeleton-text skeleton-category"></div>
+                <div className="skeleton-text skeleton-detail-content"></div>
+                <div className="skeleton-image"></div>
+                <div className="skeleton-text skeleton-title"></div>
+                <div className="skeleton-text skeleton-title"></div>
+                <div className="skeleton-text short"></div>
               </div>
-              <div
-                className="blog-detail-content"
-                dangerouslySetInnerHTML={{
-                  __html: blogDetail?.content || "",
-                }}
-              />
-            </>
-          ) : (
-            <div className="skeleton-wrapper">
-              <div className="skeleton-text skeleton-title"></div>
-              <div className="skeleton-text skeleton-date-author"></div>
-              <div className="skeleton-text skeleton-category"></div>
-              <div className="skeleton-text skeleton-detail-content"></div>
-              <div className="skeleton-image"></div>
-              <div className="skeleton-text skeleton-title"></div>
-              <div className="skeleton-text skeleton-title"></div>
-              <div className="skeleton-text short"></div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 };
 

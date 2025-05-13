@@ -4,6 +4,8 @@ import "./globals.css";
 import "../app/styles/index.css";
 import Layout from "./components/layout";
 
+import { ThemeProvider } from "@/context/ThemeContext";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,15 +31,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
+        {/* <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lora:wght@400;700&family=Playfair+Display:wght@500;700&display=swap"
+          rel="stylesheet"
+        /> */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Layout>{children}</Layout>
+        <ThemeProvider>
+          <Layout>{children}</Layout>
+        </ThemeProvider>
       </body>
     </html>
   );

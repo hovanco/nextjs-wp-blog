@@ -11,7 +11,7 @@ html {
   -moz-osx-font-smoothing: grayscale
 }
 
-html,
+/* html,
 body {
   position: relative;
   font-size: var(--font-16);
@@ -21,7 +21,7 @@ body {
   scroll-behavior: smooth !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 ol,
 ul {

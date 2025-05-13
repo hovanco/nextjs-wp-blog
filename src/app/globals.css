@@ -1,21 +1,67 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
 
-/* here */
 :root {
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Lora', serif;
-  --font-ui: 'Inter', sans-serif;
+  --font-heading: 'Work Sans', sans-serif;
+  --font-body: 'Work Sans', sans-serif;
+  --font-ui: 'Work Sans', sans-serif;
 
-  /* Optional - color variables (suggested) */
+
+  --font-size-base: 16px;
+  --font-size-heading: 2rem;
+  --font-size-subheading: 1.25rem;
+
+
   --color-text: #1a1a1a;
   --color-muted: #666;
   --color-primary: #0f172a;
   --color-accent: #2563eb;
-  --color-bg: #ffffff;
+  --color-bg: #FFFFFF;
   --color-border: #e5e7eb;
+  --color-text-label: #FFFFFF;
+  --color-bg-label: #000000;
+  --color-text-title: #FFFFFF;
+  --color-text-author: #FFFFFF;
+  --color-text-time: #FFFFFF;
+  --color-text-title-card: #181A2A;
+  --color-text-label-card: #97989F;
+  --color-text-time-card: #97989F;
+  --color-border-search: #CCCCCC;
+  --color-bg-search: #F2F2F2;
+  --font-16: 1rem;
 }
 
-/* Headings */
+
+[data-theme="dark"] {
+  --color-text: #f4f4f4;
+  --color-muted: #a1a1aa;
+  --color-primary: #e2e8f0;
+  --color-accent: #60a5fa;
+  --color-bg: #181A2A;
+  --color-border: #334155;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  background-color: #fff;
+  color: #111;
+}
+
+body {
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg);
+  font-family: var(--font-body);
+  font-size: var(--font-16);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
 h1,
 h2,
 h3,
@@ -31,35 +77,35 @@ h6 {
 
 h1 {
   font-size: 2.25rem;
-  /* 36px */
+
 }
 
 h2 {
   font-size: 1.875rem;
-  /* 30px */
+
 }
 
 h3 {
   font-size: 1.5rem;
-  /* 24px */
+
 }
 
 h4 {
   font-size: 1.25rem;
-  /* 20px */
+
 }
 
 h5 {
   font-size: 1.125rem;
-  /* 18px */
+
 }
 
 h6 {
   font-size: 1rem;
-  /* 16px */
+
 }
 
-/* Paragraph & article */
+
 p,
 article {
   font-family: var(--font-body);
@@ -69,7 +115,7 @@ article {
   margin-bottom: 1em;
 }
 
-/* Navigation, buttons, small text */
+
 nav,
 button,
 small {
@@ -80,7 +126,7 @@ small {
   color: var(--color-muted);
 }
 
-/* Span, time, labels */
+
 span,
 time,
 label {
@@ -91,7 +137,7 @@ label {
   color: var(--color-muted);
 }
 
-/* Inputs, textareas */
+
 input,
 textarea,
 select {
@@ -100,19 +146,18 @@ select {
   line-height: 1.5;
   border: 1px solid var(--color-border);
   padding: 0.5em 0.75em;
-  border-radius: 0.25rem;
   color: var(--color-text);
   background-color: var(--color-bg);
 }
 
-/* Links */
+
 a {
   color: var(--color-accent);
   text-decoration: none;
 }
 
 
-/* Blockquote */
+
 blockquote {
   font-family: var(--font-body);
   font-style: italic;
@@ -122,7 +167,6 @@ blockquote {
   color: var(--color-muted);
 }
 
-/* Code and pre */
 code,
 pre {
   font-family: 'Fira Code', monospace;
@@ -133,6 +177,10 @@ pre {
   font-size: 0.95rem;
 }
 
+button {
+  border: none;
+  outline: none;
+}
 
 nextjs-portal {
   display: none !important;

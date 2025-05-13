@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { BlogData } from "../types/posts";
 import { formatDate } from "../utils/date";
-import IconTime from "../assets/images/icon-time.png";
 import IconAuthor from "../assets/images/co-author.png";
 
 interface BlogItemProps {
@@ -11,7 +10,7 @@ interface BlogItemProps {
 
 const BlogItem = ({ post }: BlogItemProps) => {
   return (
-    <li data-aos="fade-up" className="col-4 col-small-12 card-item">
+    <li data-aos="fade-up" className="col-6 col-small-12 card-item">
       <Link className="card-link" href={`/blog/${post?.slug}`}>
         <div className="card">
           <figure className="card-img">
@@ -49,13 +48,6 @@ const BlogItem = ({ post }: BlogItemProps) => {
                 />
               </div>
               <div className="card-time">
-                <Image
-                  className="card-icon-time"
-                  src={IconTime?.src}
-                  width={14}
-                  height={14}
-                  alt="Icon Time"
-                />
                 <time
                   className="card-text-time"
                   dangerouslySetInnerHTML={{
