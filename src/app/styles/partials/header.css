@@ -37,21 +37,43 @@ header .header-menu {
   gap: 20px;
 }
 
-header .header-item.is-active .header-link {
-  font-weight: 500;
-  text-decoration: underline;
-}
-
 header .header-link {
   color: var(--color-text-title-card);
   font-size: 16px;
-  font-weight: 400;
+  /* font-weight: 400; */
+  font-weight: 600;
   line-height: 1.5;
+  transition: 0.3s;
   text-transform: capitalize;
+
+  position: relative;
 }
 
-header .header-link:hover {
-  text-decoration: underline;
+header .header-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  border-radius: 5px;
+  height: 0.05em;
+  bottom: 0;
+  left: 0;
+  background: currentcolor;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+header .header-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+header .header-item.is-active .header-link {
+  color: #4f46e5;
+}
+
+[data-theme="dark"] header .header-item.is-active .header-link {
+  color: #818cf8;
 }
 
 header .header-link.is-active {

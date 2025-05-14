@@ -16,6 +16,10 @@ const CategoryList = ({
       <div className="category-list">
         {categories?.map((category) => (
           <div
+            style={{
+              color: `${category.acf?.category_color}`,
+              backgroundColor: `${category.acf?.category_background}`,
+            }}
             key={category.id}
             className={`category-item ${
               activeCategory === category.id ? "active" : ""

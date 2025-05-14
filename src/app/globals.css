@@ -19,8 +19,11 @@
   --pin-title: #FFFFFF;
   --pin-post-meta: #FFFFFF;
 
-  --card-label-bg: #181A2A;
-  --card-label-text: #FFFFFF;
+  --card-label-bg: #E9F0FF;
+  --card-label-text: #2B4BB5;
+
+
+
   --card-title: #181A2A;
   --card-post-meta: #181A2A;
   --card-border: #E8E8EA;
@@ -39,8 +42,6 @@
   --card-title: #FFFFFF;
   --card-post-meta: #FFFFFF;
   --card-border: #242535;
-  --card-label-bg: #FFFFFF;
-  --card-label-text: #181A2A;
 }
 
 html {
