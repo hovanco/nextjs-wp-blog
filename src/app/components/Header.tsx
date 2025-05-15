@@ -37,31 +37,31 @@ const Header: React.FunctionComponent = () => {
             HOCO
           </Link>
         </div>
-        <div className="header-content">
-          <ul className="header-menu">
-            {navigation.map((item) => (
-              <li
-                key={item.href}
-                className={`header-item ${
-                  active === item.href || pathBlog === item.href
-                    ? "is-active"
-                    : ""
-                }`}
+        {/* <div className="header-content"> */}
+        <ul className="header-menu">
+          {navigation.map((item) => (
+            <li
+              key={item.href}
+              className={`header-item ${
+                active === item.href || pathBlog === item.href
+                  ? "is-active"
+                  : ""
+              }`}
+            >
+              <Link
+                className="header-link"
+                href={item.href}
+                onClick={() => setActive(item.href)}
               >
-                <Link
-                  className="header-link"
-                  href={item.href}
-                  onClick={() => setActive(item.href)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="theme-wrapper">
-            <ThemeToggle />
-          </div>
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="theme-wrapper">
+          <ThemeToggle />
         </div>
+        {/* </div> */}
       </nav>
     </header>
   );
