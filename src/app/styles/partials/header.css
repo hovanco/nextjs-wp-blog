@@ -15,6 +15,7 @@ header .header-nav {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 header .header-logo {
@@ -40,12 +41,10 @@ header .header-menu {
 header .header-link {
   color: var(--color-text-title-card);
   font-size: 16px;
-  /* font-weight: 400; */
   font-weight: 600;
   line-height: 1.5;
   transition: 0.3s;
   text-transform: capitalize;
-
   position: relative;
 }
 

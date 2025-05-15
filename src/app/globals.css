@@ -52,18 +52,16 @@ html {
 
 body {
   position: relative;
+  background-color: var(--secondary-text);
+  color: var(--primary-text);
+  transition: background 0.3s ease, color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-bg);
   font-family: var(--font-body);
-  font-size: var(--font-16);
-  color: var(--primary-text);
-  background: var(--secondary-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: var(--font-size-base);
 }
-
 
 h1,
 h2,

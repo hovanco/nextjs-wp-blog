@@ -31,15 +31,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lora:wght@400;700&family=Playfair+Display:wght@500;700&display=swap"
-          rel="stylesheet"
-        /> */}
         <link
           href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
+
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+              (function () {
+                try {
+                  const theme = localStorage.getItem('theme') ||
+                    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+        }}
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
