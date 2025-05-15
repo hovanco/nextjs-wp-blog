@@ -18,13 +18,17 @@ import { formatDate } from "../utils/date";
 import Footer from "../components/Footer";
 
 const Blog = () => {
-  const postsPerPage: number = 12;
+  const postsPerPage: number = 13;
   const [posts, setPosts] = useState<BlogData[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<number>(0);
+
+  // featuredPost
+  const [featuredPost, setFeaturedPost] = useState<BlogData | null>(null);
+  const [hasSetFeaturedPost, setHasSetFeaturedPost] = useState(false);
 
   const getPosts = async (page: number = 1) => {
     try {
@@ -143,16 +147,38 @@ const Blog = () => {
     }
   }, [currentPage, activeCategory]);
 
+  // start handle featuredPost
+  const getLatestFeaturedPost = (posts: BlogData[]) => {
+    if (!Array.isArray(posts)) return null;
+
+    const featuredPosts = posts
+      .filter((post) => post.is_featured === true && !!post.date)
+      .sort(
+        (a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()
+      );
+
+    return featuredPosts[0] ?? null;
+  };
+
+  useEffect(() => {
+    if (!hasSetFeaturedPost && posts.length > 0) {
+      const fp = getLatestFeaturedPost(posts);
+      setFeaturedPost(fp);
+      setHasSetFeaturedPost(true);
+    }
+  }, [posts, hasSetFeaturedPost]);
+  // end handle featuredPost
+
   return (
     <>
       <main id="blog-page">
         <div className="container">
           <section data-aos="fade-up" className="post-pin">
-            {posts.length > 0 && (
+            {featuredPost && (
               <Link
                 data-aos="fade-up"
                 className="pin-link"
-                href={`/blog/${posts[0]?.slug}`}
+                href={`/blog/${featuredPost?.slug}`}
               >
                 <div className="pin-wrapper">
                   <figure className="pin-img">
@@ -160,7 +186,7 @@ const Blog = () => {
                       alt="Post Image"
                       width={1920}
                       height={1080}
-                      src={posts[0]?.postImage || ""}
+                      src={featuredPost?.postImage || ""}
                     />
                   </figure>
 
@@ -168,7 +194,7 @@ const Blog = () => {
                   <div className="pin-content">
                     <div className="pin-cate">
                       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      {posts[0]?.categories?.map((category: any) => (
+                      {featuredPost?.categories?.map((category: any) => (
                         <div className="pin-cate-label" key={category?.id}>
                           <span className="pin-cate-name">
                             {category?.name}
@@ -176,7 +202,7 @@ const Blog = () => {
                         </div>
                       ))}
                     </div>
-                    <h1 className="pin-title">{posts[0]?.title}</h1>
+                    <h1 className="pin-title">{featuredPost?.title}</h1>
                     <div className="pin-footer">
                       <div className="pin-author">
                         <Image
@@ -198,7 +224,7 @@ const Blog = () => {
                         <time
                           className="pin-text-time"
                           dangerouslySetInnerHTML={{
-                            __html: formatDate(posts[0]?.date || ""),
+                            __html: formatDate(featuredPost?.date || ""),
                           }}
                         />
                       </div>
@@ -210,7 +236,11 @@ const Blog = () => {
           </section>
           <div className="blog-wrapper">
             <div className="blog-content">
-              <BlogList posts={posts} isLoading={isLoading} />
+              <BlogList
+                posts={posts}
+                isLoading={isLoading}
+                featuredPost={featuredPost}
+              />
               {posts.length > 0 && totalPages > 1 ? (
                 <BlogPagination
                   currentPage={currentPage}

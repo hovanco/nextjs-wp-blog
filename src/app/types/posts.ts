@@ -8,6 +8,7 @@ export class BlogData {
   authorName: string | undefined;
   categories: number[];
   content: string | undefined;
+  is_featured: boolean;
   // Disable no-explicit-any rule for this line
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(data: any) {
@@ -20,5 +21,7 @@ export class BlogData {
     this.authorName = data?._embedded?.author?.[0]?.name;
     this.categories = data?._embedded?.["wp:term"]?.[0] ?? [];
     this.content = data?.content?.rendered;
+    this.is_featured =
+      data?.acf?.is_featured === true || data?.acf?.is_featured === 1;
   }
 }

@@ -4,9 +4,10 @@ import { BlogData } from "../types/posts";
 interface BlogListProps {
   posts: BlogData[];
   isLoading: boolean;
+  featuredPost?: BlogData | null;
 }
 
-const BlogList = ({ posts, isLoading }: BlogListProps) => {
+const BlogList = ({ posts, isLoading, featuredPost }: BlogListProps) => {
   return (
     <>
       {isLoading ? (
@@ -106,9 +107,20 @@ const BlogList = ({ posts, isLoading }: BlogListProps) => {
       ) : (
         <section className="posts-list-section">
           <div className="container">
-            <ul className="row">
+            {/* <ul className="row">
               {posts.length > 0 ? (
                 posts.map((post) => <BlogItem key={post.id} post={post} />)
+              ) : (
+                <div className="no-results">
+                  <p className="results-title">No posts available.</p>
+                </div>
+              )}
+            </ul> */}
+            <ul className="row">
+              {posts.length > 0 ? (
+                posts
+                  .filter((post) => post.id !== featuredPost?.id) // Lọc bỏ bài được pin
+                  .map((post) => <BlogItem key={post.id} post={post} />)
               ) : (
                 <div className="no-results">
                   <p className="results-title">No posts available.</p>
