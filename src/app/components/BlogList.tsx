@@ -1,9 +1,11 @@
 import BlogItem from "./BlogItem";
 import { BlogData } from "../types/posts";
+import CardSkeleton from "./CardSkeleton";
 
 interface BlogListProps {
   posts: BlogData[];
   isLoading: boolean;
+  featuredPost?: BlogData | null;
 }
 
 const BlogList = ({ posts, isLoading }: BlogListProps) => {
@@ -11,7 +13,7 @@ const BlogList = ({ posts, isLoading }: BlogListProps) => {
     <>
       {isLoading ? (
         <>
-          <section className="skeleton-list mobile">
+          {/* <section className="skeleton-list mobile">
             <article className="skeleton-card">
               <div className="skeleton-item">
                 <div className="skeleton-content">
@@ -101,7 +103,8 @@ const BlogList = ({ posts, isLoading }: BlogListProps) => {
                 </div>
               </div>
             </article>
-          </section>
+          </section> */}
+          <CardSkeleton />
         </>
       ) : (
         <section className="posts-list-section">

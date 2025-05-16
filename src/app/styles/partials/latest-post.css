@@ -1,0 +1,13 @@
+.latest-posts {
+  margin-bottom: 40px;
+}
+
+.latest-posts ul.row.latest-list {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.latest-posts .row>[class*=col-].latest-item {
+  padding-left: 10px;
+  padding-right: 10px;
+}
