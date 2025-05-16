@@ -546,6 +546,10 @@ button.close-icon {
   position: relative;
 }
 
+.blog-content .row>[class*=col-] {
+  margin-top: 0;
+}
+
 .blog-cta {
   width: 25%;
   position: sticky;
@@ -707,7 +711,6 @@ button.close-icon {
 .posts-list-section .row {
   margin-left: -10px;
   margin-right: -10px;
-  margin-top: -20px;
 }
 
 .posts-list-section .row>[class*=col-] {
@@ -719,10 +722,6 @@ figure.card-img {
   margin-bottom: 24px;
   flex: 0 0 auto;
   overflow: hidden;
-}
-
-section.post-pin {
-  margin-bottom: 48px;
 }
 
 @media (max-width: 480px) {

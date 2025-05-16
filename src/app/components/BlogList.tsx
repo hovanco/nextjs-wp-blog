@@ -1,5 +1,6 @@
 import BlogItem from "./BlogItem";
 import { BlogData } from "../types/posts";
+import CardSkeleton from "./CardSkeleton";
 
 interface BlogListProps {
   posts: BlogData[];
@@ -7,12 +8,12 @@ interface BlogListProps {
   featuredPost?: BlogData | null;
 }
 
-const BlogList = ({ posts, isLoading, featuredPost }: BlogListProps) => {
+const BlogList = ({ posts, isLoading }: BlogListProps) => {
   return (
     <>
       {isLoading ? (
         <>
-          <section className="skeleton-list mobile">
+          {/* <section className="skeleton-list mobile">
             <article className="skeleton-card">
               <div className="skeleton-item">
                 <div className="skeleton-content">
@@ -102,25 +103,15 @@ const BlogList = ({ posts, isLoading, featuredPost }: BlogListProps) => {
                 </div>
               </div>
             </article>
-          </section>
+          </section> */}
+          <CardSkeleton />
         </>
       ) : (
         <section className="posts-list-section">
           <div className="container">
-            {/* <ul className="row">
-              {posts.length > 0 ? (
-                posts.map((post) => <BlogItem key={post.id} post={post} />)
-              ) : (
-                <div className="no-results">
-                  <p className="results-title">No posts available.</p>
-                </div>
-              )}
-            </ul> */}
             <ul className="row">
               {posts.length > 0 ? (
-                posts
-                  .filter((post) => post.id !== featuredPost?.id) // Lọc bỏ bài được pin
-                  .map((post) => <BlogItem key={post.id} post={post} />)
+                posts.map((post) => <BlogItem key={post.id} post={post} />)
               ) : (
                 <div className="no-results">
                   <p className="results-title">No posts available.</p>
