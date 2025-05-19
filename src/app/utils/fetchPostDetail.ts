@@ -1,8 +1,10 @@
 import axios from "axios";
-import { BlogData } from "../types/posts";
 import { API_BASE_URL } from "../services/api";
+import { WPPostRawData } from "../types/wp-post";
 
-export const fetchPostDetail = async (slug: string): Promise<BlogData[]> => {
+export const fetchPostDetail = async (
+  slug: string
+): Promise<WPPostRawData[]> => {
   try {
     const res = await axios.get(`${API_BASE_URL}posts?slug=${slug}&_embed`);
     return res.data;
