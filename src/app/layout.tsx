@@ -35,9 +35,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${workSans.variable} antialiased`}
+      >
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
               (function () {
                 try {
                   const theme = localStorage.getItem('theme') ||
@@ -46,11 +49,8 @@ export default function RootLayout({
                 } catch (e) {}
               })();
             `,
-        }}
-      />
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${workSans.variable} antialiased`}
-      >
+          }}
+        />
         <ThemeProvider>
           <Layout>{children}</Layout>
         </ThemeProvider>
