@@ -21,6 +21,9 @@ import {
   fetchLatestPostsExcludingPinned,
 } from "../utils/fetchPostFeatured";
 import LatestPosts from "../components/LatestPosts";
+import CardSkeleton from "../components/CardSkeleton";
+import PinSkeleton from "../components/PinSkeleton";
+import CategorySkeleton from "../components/CategorySkeleton";
 
 const Blog = () => {
   const postsPerPage: number = 12;
@@ -161,7 +164,6 @@ const Blog = () => {
         const latestRes = await fetchLatestPostsExcludingPinned(
           Number(pinnedPost.id)
         );
-        console.log("latestRes: ", latestRes);
         setLatestPosts(latestRes);
       }
     } catch (error) {
@@ -179,67 +181,77 @@ const Blog = () => {
     <>
       <main id="blog-page">
         <div className="container">
-          <section data-aos="fade-up" className="post-pin">
-            {featuredPost && (
-              <Link
-                data-aos="fade-up"
-                className="pin-link"
-                href={`/blog/${featuredPost?.slug}`}
-              >
-                <div className="pin-wrapper">
-                  <figure className="pin-img">
-                    <Image
-                      alt="Post Image"
-                      width={1920}
-                      height={1080}
-                      src={featuredPost?.postImage || ""}
-                    />
-                  </figure>
-
-                  <div className="pin-overlay"></div>
-                  <div className="pin-content">
-                    <div className="pin-cate">
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      {featuredPost?.categories?.map((category: any) => (
-                        <div className="pin-cate-label" key={category?.id}>
-                          <span className="pin-cate-name">
-                            {category?.name}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <h1 className="pin-title">{featuredPost?.title}</h1>
-                    <div className="pin-footer">
-                      <div className="pin-author">
+          {isLoading ? (
+            <>
+              <PinSkeleton />
+              <CardSkeleton />
+            </>
+          ) : (
+            <>
+              <section data-aos="fade-up" className="post-pin">
+                {featuredPost && (
+                  <Link
+                    data-aos="fade-up"
+                    className="pin-link"
+                    href={`/blog/${featuredPost?.slug}`}
+                  >
+                    <div className="pin-wrapper">
+                      <figure className="pin-img">
                         <Image
-                          className="pin-icon-author"
-                          src={IconAuthor?.src}
-                          alt="Icon Author"
-                          width={36}
-                          height={36}
+                          alt="Post Image"
+                          width={1920}
+                          height={1080}
+                          src={featuredPost?.postImage || ""}
                         />
-                        <span className="pin-text-author">Co.Ho</span>
-                        {/* <span
+                      </figure>
+
+                      <div className="pin-overlay"></div>
+                      <div className="pin-content">
+                        <div className="pin-cate">
+                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                          {featuredPost?.categories?.map((category: any) => (
+                            <div className="pin-cate-label" key={category?.id}>
+                              <span className="pin-cate-name">
+                                {category?.name}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                        <h1 className="pin-title">{featuredPost?.title}</h1>
+                        <div className="pin-footer">
+                          <div className="pin-author">
+                            <Image
+                              className="pin-icon-author"
+                              src={IconAuthor?.src}
+                              alt="Icon Author"
+                              width={36}
+                              height={36}
+                            />
+                            <span className="pin-text-author">Co.Ho</span>
+                            {/* <span
                           className="pin-text-author"
                           dangerouslySetInnerHTML={{
                             __html: featuredPost?.authorName || "",
                           }}
                         /> */}
-                      </div>
-                      <div className="pin-time">
-                        <time
-                          className="pin-text-time"
-                          dangerouslySetInnerHTML={{
-                            __html: formatDate(featuredPost?.date || ""),
-                          }}
-                        />
+                          </div>
+                          <div className="pin-time">
+                            <time
+                              className="pin-text-time"
+                              dangerouslySetInnerHTML={{
+                                __html: formatDate(featuredPost?.date || ""),
+                              }}
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </Link>
-            )}
-          </section>
+                  </Link>
+                )}
+              </section>
+              <LatestPosts posts={latestPosts} />
+            </>
+          )}
           <div className="blog-wrapper">
             <div className="blog-content">
               <BlogList posts={posts} isLoading={isLoading} />
@@ -251,7 +263,7 @@ const Blog = () => {
                 />
               ) : null}
             </div>
-            {categories.length > 0 && (
+            {categories.length > 0 ? (
               <div data-aos="fade-up" className="blog-cta">
                 <SearchBar
                   onSearch={getSearchPosts}
@@ -262,6 +274,10 @@ const Blog = () => {
                   activeCategory={activeCategory}
                   onCategoryClick={handleCategoryClick}
                 />
+              </div>
+            ) : (
+              <div data-aos="fade-up" className="blog-cta">
+                <CategorySkeleton />
               </div>
             )}
           </div>
