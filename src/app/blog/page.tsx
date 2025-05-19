@@ -16,6 +16,7 @@ import Link from "next/link";
 import IconAuthor from "../assets/images/co-author.png";
 import { formatDate } from "../utils/date";
 import Footer from "../components/Footer";
+import { fetchAllFeaturedPosts } from "../utils/fetchPostFeatured";
 
 const Blog = () => {
   const postsPerPage: number = 12;
@@ -25,6 +26,10 @@ const Blog = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<number>(0);
+
+  // featuredPost
+  const [featuredPost, setFeaturedPost] = useState<BlogData | null>(null);
+  // const [hasSetFeaturedPost, setHasSetFeaturedPost] = useState(false);
 
   const getPosts = async (page: number = 1) => {
     try {
@@ -143,16 +148,34 @@ const Blog = () => {
     }
   }, [currentPage, activeCategory]);
 
+  const getAllPinnedPosts = async () => {
+    try {
+      const res = await withMinLoading(fetchAllFeaturedPosts(), 500);
+      if (res && res.length > 0) {
+        const pinnedPost: BlogData = res[0];
+        setFeaturedPost(pinnedPost);
+      }
+    } catch (error) {
+      console.error("Error fetching all pinned posts:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllPinnedPosts();
+  }, []);
+
   return (
     <>
       <main id="blog-page">
         <div className="container">
           <section data-aos="fade-up" className="post-pin">
-            {posts.length > 0 && (
+            {featuredPost && (
               <Link
                 data-aos="fade-up"
                 className="pin-link"
-                href={`/blog/${posts[0]?.slug}`}
+                href={`/blog/${featuredPost?.slug}`}
               >
                 <div className="pin-wrapper">
                   <figure className="pin-img">
@@ -160,7 +183,7 @@ const Blog = () => {
                       alt="Post Image"
                       width={1920}
                       height={1080}
-                      src={posts[0]?.postImage || ""}
+                      src={featuredPost?.postImage || ""}
                     />
                   </figure>
 
@@ -168,7 +191,7 @@ const Blog = () => {
                   <div className="pin-content">
                     <div className="pin-cate">
                       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      {posts[0]?.categories?.map((category: any) => (
+                      {featuredPost?.categories?.map((category: any) => (
                         <div className="pin-cate-label" key={category?.id}>
                           <span className="pin-cate-name">
                             {category?.name}
@@ -176,7 +199,7 @@ const Blog = () => {
                         </div>
                       ))}
                     </div>
-                    <h1 className="pin-title">{posts[0]?.title}</h1>
+                    <h1 className="pin-title">{featuredPost?.title}</h1>
                     <div className="pin-footer">
                       <div className="pin-author">
                         <Image
@@ -190,7 +213,7 @@ const Blog = () => {
                         {/* <span
                           className="pin-text-author"
                           dangerouslySetInnerHTML={{
-                            __html: posts[0]?.authorName || "",
+                            __html: featuredPost?.authorName || "",
                           }}
                         /> */}
                       </div>
@@ -198,7 +221,7 @@ const Blog = () => {
                         <time
                           className="pin-text-time"
                           dangerouslySetInnerHTML={{
-                            __html: formatDate(posts[0]?.date || ""),
+                            __html: formatDate(featuredPost?.date || ""),
                           }}
                         />
                       </div>

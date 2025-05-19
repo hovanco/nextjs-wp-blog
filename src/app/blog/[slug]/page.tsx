@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { BlogData } from "@/app/types/posts";
@@ -14,7 +14,7 @@ const BlogDetail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [blogDetail, setBlogDetail] = useState<BlogData | null>(null);
 
-  const loadBlogDetail = async () => {
+  const loadBlogDetail = useCallback(async () => {
     const minimumLoadingTime = 500;
     const startTime = Date.now();
     try {
@@ -31,13 +31,11 @@ const BlogDetail = () => {
         setIsLoading(false);
       }
     }
-  };
+  }, [slug]);
 
-  // Disable no-explicit-any rule for this line
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useEffect(() => {
     loadBlogDetail();
-  }, [slug]);
+  }, [loadBlogDetail]);
 
   return (
     <>
@@ -60,7 +58,6 @@ const BlogDetail = () => {
                       </span>
                     </div>
                   ))}
-                  {/* eslint-enable @typescript-eslint/no-explicit-any */}
                 </div>
                 <div className="detail-meta">
                   <div className="card-author">
