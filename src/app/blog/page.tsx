@@ -16,7 +16,11 @@ import Link from "next/link";
 import IconAuthor from "../assets/images/co-author.png";
 import { formatDate } from "../utils/date";
 import Footer from "../components/Footer";
-import { fetchAllFeaturedPosts } from "../utils/fetchPostFeatured";
+import {
+  fetchAllFeaturedPosts,
+  fetchLatestPostsExcludingPinned,
+} from "../utils/fetchPostFeatured";
+import LatestPosts from "../components/LatestPosts";
 
 const Blog = () => {
   const postsPerPage: number = 12;
@@ -29,7 +33,7 @@ const Blog = () => {
 
   // featuredPost
   const [featuredPost, setFeaturedPost] = useState<BlogData | null>(null);
-  // const [hasSetFeaturedPost, setHasSetFeaturedPost] = useState(false);
+  const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
 
   const getPosts = async (page: number = 1) => {
     try {
@@ -113,7 +117,7 @@ const Blog = () => {
         searchPosts(query, page, postsPerPage, selectedCategoryId),
         500
       );
-      // Disable no-explicit-any rule for this line
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const results = res.data.map((item: any) => new BlogData(item));
       setPosts(results);
@@ -148,22 +152,27 @@ const Blog = () => {
     }
   }, [currentPage, activeCategory]);
 
-  const getAllPinnedPosts = async () => {
+  const getPinnedAndLatestPosts = async () => {
     try {
-      const res = await withMinLoading(fetchAllFeaturedPosts(), 500);
-      if (res && res.length > 0) {
-        const pinnedPost: BlogData = res[0];
+      const pinnedRes = await withMinLoading(fetchAllFeaturedPosts(), 500);
+      if (pinnedRes && pinnedRes.length > 0) {
+        const pinnedPost = pinnedRes[0];
         setFeaturedPost(pinnedPost);
+        const latestRes = await fetchLatestPostsExcludingPinned(
+          Number(pinnedPost.id)
+        );
+        console.log("latestRes: ", latestRes);
+        setLatestPosts(latestRes);
       }
     } catch (error) {
-      console.error("Error fetching all pinned posts:", error);
+      console.error("Error fetching pinned or latest posts:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    getAllPinnedPosts();
+    getPinnedAndLatestPosts();
   }, []);
 
   return (
