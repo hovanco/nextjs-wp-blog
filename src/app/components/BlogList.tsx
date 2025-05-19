@@ -1,5 +1,6 @@
 import BlogItem from "./BlogItem";
 import { BlogData } from "../types/posts";
+import CardSkeleton from "./CardSkeleton";
 
 interface BlogListProps {
   posts: BlogData[];
@@ -11,97 +12,7 @@ const BlogList = ({ posts, isLoading }: BlogListProps) => {
     <>
       {isLoading ? (
         <>
-          <section className="skeleton-list mobile">
-            <article className="skeleton-card">
-              <div className="skeleton-item">
-                <div className="skeleton-content">
-                  <h2 className="skeleton-text skeleton-title"></h2>
-                  <p className="skeleton-text skeleton-sub-title"></p>
-                  <p className="skeleton-text skeleton-date-author"></p>
-                  <div className="wrapper-skeleton-content">
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                  </div>
-                </div>
-                <figure className="skeleton-image"></figure>
-              </div>
-              <div className="skeleton-text skeleton-border"></div>
-            </article>
-            <article className="skeleton-card">
-              <div className="skeleton-item">
-                <div className="skeleton-content">
-                  <h2 className="skeleton-text skeleton-title"></h2>
-                  <p className="skeleton-text skeleton-sub-title"></p>
-                  <p className="skeleton-text skeleton-date-author"></p>
-                  <div className="wrapper-skeleton-content">
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                  </div>
-                </div>
-                <figure className="skeleton-image"></figure>
-              </div>
-              <div className="skeleton-text skeleton-border"></div>
-            </article>
-            <article className="skeleton-card">
-              <div className="skeleton-item">
-                <div className="skeleton-content">
-                  <h2 className="skeleton-text skeleton-title"></h2>
-                  <p className="skeleton-text skeleton-sub-title"></p>
-                  <p className="skeleton-text skeleton-date-author"></p>
-                  <div className="wrapper-skeleton-content">
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                  </div>
-                </div>
-                <figure className="skeleton-image"></figure>
-              </div>
-              <div className="skeleton-text skeleton-border"></div>
-            </article>
-            <article className="skeleton-card">
-              <div className="skeleton-item">
-                <div className="skeleton-content">
-                  <h2 className="skeleton-text skeleton-title"></h2>
-                  <p className="skeleton-text skeleton-sub-title"></p>
-                  <p className="skeleton-text skeleton-date-author"></p>
-                  <div className="wrapper-skeleton-content">
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                  </div>
-                </div>
-                <figure className="skeleton-image"></figure>
-              </div>
-              <div className="skeleton-text skeleton-border"></div>
-            </article>
-            <article className="skeleton-card">
-              <div className="skeleton-item">
-                <div className="skeleton-content">
-                  <h2 className="skeleton-text skeleton-title"></h2>
-                  <p className="skeleton-text skeleton-sub-title"></p>
-                  <p className="skeleton-text skeleton-date-author"></p>
-                  <div className="wrapper-skeleton-content">
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                    <span className="skeleton-text skeleton-category"></span>
-                  </div>
-                </div>
-                <figure className="skeleton-image"></figure>
-              </div>
-              <div className="skeleton-text skeleton-border"></div>
-            </article>
-          </section>
-          <section className="skeleton-list desktop">
-            <article className="skeleton-card">
-              <div className="skeleton-item">
-                <div className="skeleton-content">
-                  <div className="skeleton-text skeleton-title list-skeleton-img"></div>
-                </div>
-              </div>
-            </article>
-          </section>
+          <CardSkeleton />
         </>
       ) : (
         <section className="posts-list-section">
