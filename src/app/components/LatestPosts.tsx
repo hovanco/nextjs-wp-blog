@@ -11,7 +11,7 @@ interface LatestPostsProps {
 const LatestPosts = ({ posts }: LatestPostsProps) => {
   if (!posts || posts.length === 0) return null;
   return (
-    <section className="latest-posts" data-aos="fade-up">
+    <div className="latest-posts" data-aos="fade-up">
       <ul className="row latest-list">
         {posts.map((post, index) => (
           <li
@@ -67,7 +67,7 @@ const LatestPosts = ({ posts }: LatestPostsProps) => {
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   );
 };
 

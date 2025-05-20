@@ -750,4 +750,44 @@ section.post-pin {
     color: #FFFFFF;
     background: #000000;
   }
+
+  .pin-title {
+    color: #181A2A;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .pin-text-author {
+    color: #181A2A;
+  }
+
+  .pin-text-time {
+    color: #181A2A;
+  }
+
+  [data-theme="dark"] .pin-title {
+    color: #FFFFFF;
+  }
+
+  [data-theme="dark"] .pin-text-author {
+    color: #FFFFFF;
+  }
+
+  [data-theme="dark"] .pin-text-time {
+    color: #FFFFFF;
+  }
+
+  .pin-content {
+    position: static;
+    padding: 0;
+  }
+
+  .pin-overlay {
+    position: static;
+  }
+
+  .pin-img {
+    margin-bottom: 24px;
+  }
 }

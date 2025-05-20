@@ -37,6 +37,9 @@ const Blog = () => {
   const [featuredPost, setFeaturedPost] = useState<BlogData | null>(null);
   const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
 
+  const [isSearching, setIsSearching] = useState(false);
+  const [isFiltering, setIsFiltering] = useState(false);
+
   const getPosts = useCallback(
     async (page = 1) => {
       try {
@@ -93,9 +96,12 @@ const Blog = () => {
   };
 
   const handleCategoryClick = (categoryId: number) => {
+    if (categoryId === activeCategory) return; // nếu click lại category đang active thì không làm gì
     setCurrentPage(1);
     setActiveCategory(categoryId);
     setIsLoading(true);
+    setIsFiltering(categoryId !== 0);
+    setIsSearching(false);
   };
 
   const geCategoriesPost = useCallback(async () => {
@@ -110,6 +116,9 @@ const Blog = () => {
 
   const getSearchPosts = async (query: string, page = 1) => {
     setIsLoading(true);
+    setIsSearching(true);
+    setIsFiltering(false);
+
     try {
       const selectedCategoryId =
         activeCategory !== 0 ? activeCategory : undefined;
@@ -155,13 +164,13 @@ const Blog = () => {
     geCategoriesPost();
   }, [getPinnedAndLatestPosts, geCategoriesPost]);
 
-  // Fetch posts when featuredPost & latestPosts đã có
   useEffect(() => {
     if (featuredPost && latestPosts.length > 0) {
-      if (activeCategory === 0) {
-        getPosts(currentPage);
-      } else {
+      if (isSearching) return; // đã xử lý riêng trong getSearchPosts
+      if (isFiltering && activeCategory !== 0) {
         getPostsByCategory(activeCategory, currentPage);
+      } else {
+        getPosts(currentPage);
       }
     }
   }, [
@@ -171,6 +180,8 @@ const Blog = () => {
     latestPosts,
     getPosts,
     getPostsByCategory,
+    isFiltering,
+    isSearching,
   ]);
 
   return (
@@ -183,63 +194,69 @@ const Blog = () => {
               <CardSkeleton />
             </>
           ) : (
-            <>
-              <section data-aos="fade-up" className="post-pin">
-                {featuredPost && (
-                  <Link
-                    className="pin-link"
-                    href={`/blog/${featuredPost?.slug}`}
-                  >
-                    <div className="pin-wrapper">
-                      <figure className="pin-img">
-                        <Image
-                          alt="Post Image"
-                          width={1920}
-                          height={1080}
-                          src={featuredPost?.postImage || ""}
-                        />
-                      </figure>
-                      <div className="pin-overlay"></div>
-                      <div className="pin-content">
-                        <div className="pin-cate">
-                          {/* Disable no-explicit-any rule for this line */}
-                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                          {featuredPost?.categories?.map((category: any) => (
-                            <div className="pin-cate-label" key={category?.id}>
-                              <span className="pin-cate-name">
-                                {category?.name}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                        <h1 className="pin-title">{featuredPost?.title}</h1>
-                        <div className="pin-footer">
-                          <div className="pin-author">
-                            <Image
-                              className="pin-icon-author"
-                              src={IconAuthor?.src}
-                              alt="Icon Author"
-                              width={36}
-                              height={36}
-                            />
-                            <span className="pin-text-author">Co.Ho</span>
+            !isSearching &&
+            !isFiltering && (
+              <div className="featured-and-latest">
+                <div data-aos="fade-up" className="post-pin">
+                  {featuredPost && (
+                    <Link
+                      className="pin-link"
+                      href={`/blog/${featuredPost?.slug}`}
+                    >
+                      <div className="pin-wrapper">
+                        <figure className="pin-img">
+                          <Image
+                            alt="Post Image"
+                            width={1920}
+                            height={1080}
+                            src={featuredPost?.postImage || ""}
+                          />
+                        </figure>
+                        <div className="pin-overlay"></div>
+                        <div className="pin-content">
+                          <div className="pin-cate">
+                            {/* Disable no-explicit-any rule for this line */}
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {featuredPost?.categories?.map((category: any) => (
+                              <div
+                                className="pin-cate-label"
+                                key={category?.id}
+                              >
+                                <span className="pin-cate-name">
+                                  {category?.name}
+                                </span>
+                              </div>
+                            ))}
                           </div>
-                          <div className="pin-time">
-                            <time
-                              className="pin-text-time"
-                              dangerouslySetInnerHTML={{
-                                __html: formatDate(featuredPost?.date || ""),
-                              }}
-                            />
+                          <h1 className="pin-title">{featuredPost?.title}</h1>
+                          <div className="pin-footer">
+                            <div className="pin-author">
+                              <Image
+                                className="pin-icon-author"
+                                src={IconAuthor?.src}
+                                alt="Icon Author"
+                                width={36}
+                                height={36}
+                              />
+                              <span className="pin-text-author">Co.Ho</span>
+                            </div>
+                            <div className="pin-time">
+                              <time
+                                className="pin-text-time"
+                                dangerouslySetInnerHTML={{
+                                  __html: formatDate(featuredPost?.date || ""),
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                )}
-              </section>
-              <LatestPosts posts={latestPosts} />
-            </>
+                    </Link>
+                  )}
+                </div>
+                <LatestPosts posts={latestPosts} />
+              </div>
+            )
           )}
 
           <div className="blog-wrapper">
