@@ -641,7 +641,6 @@ button.close-icon {
 }
 
 .pin-title {
-  max-width: 60%;
   color: var(--pin-title);
   font-size: 36px;
   font-weight: 600;

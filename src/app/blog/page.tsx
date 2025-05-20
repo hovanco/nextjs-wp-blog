@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import BlogList from "../components/BlogList";
 import BlogPagination from "../components/BlogPagination";
 import CategoryList from "../components/CategoryList";
@@ -26,81 +26,79 @@ import PinSkeleton from "../components/PinSkeleton";
 import CategorySkeleton from "../components/CategorySkeleton";
 
 const Blog = () => {
-  const postsPerPage: number = 12;
+  const postsPerPage = 12;
   const [posts, setPosts] = useState<BlogData[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [activeCategory, setActiveCategory] = useState<number>(0);
+  const [activeCategory, setActiveCategory] = useState(0);
 
-  // featuredPost
   const [featuredPost, setFeaturedPost] = useState<BlogData | null>(null);
   const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
 
-  const getPosts = async (page: number = 1) => {
-    try {
-      const response = await withMinLoading(
-        fetchPosts(postsPerPage, page),
-        500
-      );
-      // Disable no-explicit-any rule for this line
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const postsData = response.data.map((item: any) => new BlogData(item));
-      const numberOfPosts = parseInt(response.headers["x-wp-total"], 10);
-      const totalPages = Math.ceil(numberOfPosts / postsPerPage);
-      setPosts(postsData);
-      setTotalPages(totalPages);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const getPosts = useCallback(
+    async (page = 1) => {
+      try {
+        const excludedIds = [
+          Number(featuredPost?.id),
+          ...latestPosts.map((post) => Number(post.id)),
+        ].filter((id): id is number => !isNaN(id));
+        const response = await withMinLoading(
+          fetchPosts(postsPerPage, page, excludedIds),
+          500
+        );
+        // Disable no-explicit-any rule for this line
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const postsData = response.data.map((item: any) => new BlogData(item));
+        const numberOfPosts = parseInt(response.headers["x-wp-total"], 10);
+        const totalPages = Math.ceil(numberOfPosts / postsPerPage);
+        setPosts(postsData);
+        setTotalPages(totalPages);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [featuredPost, latestPosts]
+  );
 
-  const getPostsByCategory = async (categoryId: number, page: number = 1) => {
-    try {
-      const res = await withMinLoading(
-        fetchPostsByCategory(categoryId, page, postsPerPage),
-        500
-      );
-
-      // Disable no-explicit-any rule for this line
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const data = res.data.map((item: any) => new BlogData(item));
-      setPosts(data);
-      const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
-      const totalPages = Math.ceil(numberOfPosts / postsPerPage);
-      setTotalPages(totalPages);
-    } catch (error) {
-      console.error("Error fetching posts by category:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const getPostsByCategory = useCallback(
+    async (categoryId: number, page = 1) => {
+      try {
+        const res = await withMinLoading(
+          fetchPostsByCategory(categoryId, page, postsPerPage),
+          500
+        );
+        // Disable no-explicit-any rule for this line
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const data = res.data.map((item: any) => new BlogData(item));
+        setPosts(data);
+        const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
+        const totalPages = Math.ceil(numberOfPosts / postsPerPage);
+        setTotalPages(totalPages);
+      } catch (error) {
+        console.error("Error fetching posts by category:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setIsLoading(true);
-    if (activeCategory === 0) {
-      getPosts(page);
-    } else {
-      getPostsByCategory(activeCategory, page);
-    }
   };
 
   const handleCategoryClick = (categoryId: number) => {
     setCurrentPage(1);
     setActiveCategory(categoryId);
     setIsLoading(true);
-    if (categoryId === 0) {
-      getPosts(1);
-    } else {
-      getPostsByCategory(categoryId, 1);
-    }
   };
 
-  const geCategoriesPost = async () => {
+  const geCategoriesPost = useCallback(async () => {
     try {
       const data = await withMinLoading(fetchCategories(), 500);
       const updatedCategories = [{ id: 0, name: "All" }, ...data];
@@ -108,54 +106,32 @@ const Blog = () => {
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
-  };
+  }, []);
 
   const getSearchPosts = async (query: string, page = 1) => {
     setIsLoading(true);
     try {
-      // Check if already select sort by categoryId or no
       const selectedCategoryId =
         activeCategory !== 0 ? activeCategory : undefined;
       const res = await withMinLoading(
         searchPosts(query, page, postsPerPage, selectedCategoryId),
         500
       );
-
+      // Disable no-explicit-any rule for this line
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const results = res.data.map((item: any) => new BlogData(item));
       setPosts(results);
       const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
       const totalPages = Math.ceil(numberOfPosts / postsPerPage);
       setTotalPages(totalPages);
-      // Disable no-explicit-any rule for this line
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error fetching search:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    geCategoriesPost();
-  }, []);
-
-  useEffect(() => {
-    if (activeCategory === 0) {
-      getPosts(currentPage);
-    } else {
-      getPostsByCategory(activeCategory, currentPage);
-    }
-  }, [currentPage, activeCategory]);
-  useEffect(() => {
-    if (activeCategory === 0) {
-      getPosts(currentPage);
-    } else if (activeCategory !== 0) {
-      getPostsByCategory(activeCategory, currentPage);
-    }
-  }, [currentPage, activeCategory]);
-
-  const getPinnedAndLatestPosts = async () => {
+  const getPinnedAndLatestPosts = useCallback(async () => {
     try {
       const pinnedRes = await withMinLoading(fetchAllFeaturedPosts(), 500);
       if (pinnedRes && pinnedRes.length > 0) {
@@ -171,11 +147,31 @@ const Blog = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
+  // Fetch pinned & categories when first load
   useEffect(() => {
     getPinnedAndLatestPosts();
-  }, []);
+    geCategoriesPost();
+  }, [getPinnedAndLatestPosts, geCategoriesPost]);
+
+  // Fetch posts when featuredPost & latestPosts đã có
+  useEffect(() => {
+    if (featuredPost && latestPosts.length > 0) {
+      if (activeCategory === 0) {
+        getPosts(currentPage);
+      } else {
+        getPostsByCategory(activeCategory, currentPage);
+      }
+    }
+  }, [
+    currentPage,
+    activeCategory,
+    featuredPost,
+    latestPosts,
+    getPosts,
+    getPostsByCategory,
+  ]);
 
   return (
     <>
@@ -191,7 +187,6 @@ const Blog = () => {
               <section data-aos="fade-up" className="post-pin">
                 {featuredPost && (
                   <Link
-                    data-aos="fade-up"
                     className="pin-link"
                     href={`/blog/${featuredPost?.slug}`}
                   >
@@ -204,10 +199,10 @@ const Blog = () => {
                           src={featuredPost?.postImage || ""}
                         />
                       </figure>
-
                       <div className="pin-overlay"></div>
                       <div className="pin-content">
                         <div className="pin-cate">
+                          {/* Disable no-explicit-any rule for this line */}
                           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                           {featuredPost?.categories?.map((category: any) => (
                             <div className="pin-cate-label" key={category?.id}>
@@ -228,12 +223,6 @@ const Blog = () => {
                               height={36}
                             />
                             <span className="pin-text-author">Co.Ho</span>
-                            {/* <span
-                          className="pin-text-author"
-                          dangerouslySetInnerHTML={{
-                            __html: featuredPost?.authorName || "",
-                          }}
-                        /> */}
                           </div>
                           <div className="pin-time">
                             <time
@@ -252,6 +241,7 @@ const Blog = () => {
               <LatestPosts posts={latestPosts} />
             </>
           )}
+
           <div className="blog-wrapper">
             <div className="blog-content">
               <BlogList posts={posts} isLoading={isLoading} />
