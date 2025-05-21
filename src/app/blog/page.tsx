@@ -1,17 +1,16 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+
+import { useEffect, useState, useCallback, useMemo } from "react";
 import BlogList from "../components/BlogList";
 import BlogPagination from "../components/BlogPagination";
 import CategoryList from "../components/CategoryList";
 import SearchBar from "../components/SearchBar";
 import { BlogData } from "../types/posts";
-import { Category } from "../types/category";
 import { fetchPosts, fetchPostsByCategory } from "../utils/fetchPosts";
-import { fetchCategories } from "../utils/fetchCategories";
 import { searchPosts } from "../utils/searchPosts";
 import { withMinLoading } from "../utils/withMinLoading";
 import Footer from "../components/Footer";
-
+import { useCategories } from "../hooks/useCategories";
 import { fetchLatestPostsExcludingPinned } from "../utils/fetchPostFeatured";
 import LatestPosts from "../components/LatestPosts";
 import CardSkeleton from "../components/CardSkeleton";
@@ -27,23 +26,24 @@ const Blog = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState(0);
-
-  const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
 
+  const { categories, isLoadingCategories } = useCategories();
   const { pinnedPost } = usePinnedPost();
+
+  const excludedIds = useMemo(() => {
+    return [
+      Number(pinnedPost?.id),
+      ...latestPosts.map((post) => Number(post.id)),
+    ].filter((id): id is number => !isNaN(id));
+  }, [pinnedPost, latestPosts]);
 
   const getPosts = useCallback(
     async (page = 1) => {
       try {
-        const excludedIds = [
-          Number(pinnedPost?.id),
-          ...latestPosts.map((post) => Number(post.id)),
-        ].filter((id): id is number => !isNaN(id));
-
         const response = await withMinLoading(
           fetchPosts(postsPerPage, page, excludedIds),
           500
@@ -52,16 +52,15 @@ const Blog = () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const postsData = response.data.map((item: any) => new BlogData(item));
         const numberOfPosts = parseInt(response.headers["x-wp-total"], 10);
-        const totalPages = Math.ceil(numberOfPosts / postsPerPage);
         setPosts(postsData);
-        setTotalPages(totalPages);
+        setTotalPages(Math.ceil(numberOfPosts / postsPerPage));
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
         setIsLoading(false);
       }
     },
-    [pinnedPost, latestPosts]
+    [excludedIds]
   );
 
   const getPostsByCategory = useCallback(
@@ -74,10 +73,9 @@ const Blog = () => {
         // Disable no-explicit-any rule for this line
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const data = res.data.map((item: any) => new BlogData(item));
-        setPosts(data);
         const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
-        const totalPages = Math.ceil(numberOfPosts / postsPerPage);
-        setTotalPages(totalPages);
+        setPosts(data);
+        setTotalPages(Math.ceil(numberOfPosts / postsPerPage));
       } catch (error) {
         console.error("Error fetching posts by category:", error);
       } finally {
@@ -85,6 +83,33 @@ const Blog = () => {
       }
     },
     []
+  );
+
+  const getSearchPosts = useCallback(
+    async (query: string, page = 1) => {
+      setIsLoading(true);
+      setIsSearching(true);
+      setIsFiltering(false);
+      try {
+        const selectedCategoryId =
+          activeCategory !== 0 ? activeCategory : undefined;
+        const res = await withMinLoading(
+          searchPosts(query, page, postsPerPage, selectedCategoryId),
+          500
+        );
+        // Disable no-explicit-any rule for this line
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const results = res.data.map((item: any) => new BlogData(item));
+        const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
+        setPosts(results);
+        setTotalPages(Math.ceil(numberOfPosts / postsPerPage));
+      } catch (error) {
+        console.error("Error fetching search:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [activeCategory]
   );
 
   const handlePageChange = (page: number) => {
@@ -96,45 +121,9 @@ const Blog = () => {
     if (categoryId === activeCategory) return;
     setCurrentPage(1);
     setActiveCategory(categoryId);
-    setIsLoading(true);
     setIsFiltering(categoryId !== 0);
     setIsSearching(false);
-  };
-
-  const geCategoriesPost = useCallback(async () => {
-    try {
-      const data = await withMinLoading(fetchCategories(), 500);
-      const updatedCategories = [{ id: 0, name: "All" }, ...data];
-      setCategories(updatedCategories);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  }, []);
-
-  const getSearchPosts = async (query: string, page = 1) => {
     setIsLoading(true);
-    setIsSearching(true);
-    setIsFiltering(false);
-
-    try {
-      const selectedCategoryId =
-        activeCategory !== 0 ? activeCategory : undefined;
-      const res = await withMinLoading(
-        searchPosts(query, page, postsPerPage, selectedCategoryId),
-        500
-      );
-      // Disable no-explicit-any rule for this line
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const results = res.data.map((item: any) => new BlogData(item));
-      setPosts(results);
-      const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
-      const totalPages = Math.ceil(numberOfPosts / postsPerPage);
-      setTotalPages(totalPages);
-    } catch (error) {
-      console.error("Error fetching search:", error);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const getLatestPosts = useCallback(async () => {
@@ -150,23 +139,16 @@ const Blog = () => {
   }, [pinnedPost]);
 
   useEffect(() => {
-    geCategoriesPost();
-  }, [geCategoriesPost]);
+    getLatestPosts();
+  }, [getLatestPosts]);
 
   useEffect(() => {
-    if (pinnedPost) {
-      getLatestPosts();
-    }
-  }, [pinnedPost, getLatestPosts]);
+    if (!pinnedPost || latestPosts.length === 0 || isSearching) return;
 
-  useEffect(() => {
-    if (pinnedPost && latestPosts.length > 0) {
-      if (isSearching) return;
-      if (isFiltering && activeCategory !== 0) {
-        getPostsByCategory(activeCategory, currentPage);
-      } else {
-        getPosts(currentPage);
-      }
+    if (isFiltering && activeCategory !== 0) {
+      getPostsByCategory(activeCategory, currentPage);
+    } else {
+      getPosts(currentPage);
     }
   }, [
     currentPage,
@@ -201,31 +183,29 @@ const Blog = () => {
           <div className="blog-wrapper">
             <div className="blog-content">
               <BlogList posts={posts} isLoading={isLoading} />
-              {posts.length > 0 && totalPages > 1 ? (
+              {!isLoading && posts.length > 0 && totalPages > 1 && (
                 <BlogPagination
                   currentPage={currentPage}
                   totalPages={totalPages}
                   onPageChange={handlePageChange}
                 />
-              ) : null}
+              )}
             </div>
-            {categories.length > 0 ? (
-              <div data-aos="fade-up" className="blog-cta">
-                <SearchBar
-                  onSearch={getSearchPosts}
-                  activeCategory={activeCategory}
-                />
+            <div data-aos="fade-up" className="blog-cta">
+              <SearchBar
+                onSearch={getSearchPosts}
+                activeCategory={activeCategory}
+              />
+              {isLoadingCategories ? (
+                <CategorySkeleton />
+              ) : (
                 <CategoryList
                   categories={categories}
                   activeCategory={activeCategory}
                   onCategoryClick={handleCategoryClick}
                 />
-              </div>
-            ) : (
-              <div data-aos="fade-up" className="blog-cta">
-                <CategorySkeleton />
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </main>
