@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState, useCallback, useMemo } from "react";
 import BlogList from "../components/BlogList";
 import BlogPagination from "../components/BlogPagination";
@@ -18,10 +17,10 @@ import PinSkeleton from "../components/PinSkeleton";
 import CategorySkeleton from "../components/CategorySkeleton";
 import PinnedPost from "../components/PinnedPost";
 import { usePinnedPost } from "../hooks/usePinnedPost";
+import { WPPostRawData } from "../types/wp-post";
 
 const Blog = () => {
   const postsPerPage = 12;
-
   const [posts, setPosts] = useState<BlogData[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,9 +47,9 @@ const Blog = () => {
           fetchPosts(postsPerPage, page, excludedIds),
           500
         );
-        // Disable no-explicit-any rule for this line
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const postsData = response.data.map((item: any) => new BlogData(item));
+        const postsData = response.data.map(
+          (item: WPPostRawData) => new BlogData(item)
+        );
         const numberOfPosts = parseInt(response.headers["x-wp-total"], 10);
         setPosts(postsData);
         setTotalPages(Math.ceil(numberOfPosts / postsPerPage));
@@ -70,9 +69,7 @@ const Blog = () => {
           fetchPostsByCategory(categoryId, page, postsPerPage),
           500
         );
-        // Disable no-explicit-any rule for this line
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const data = res.data.map((item: any) => new BlogData(item));
+        const data = res.data.map((item: WPPostRawData) => new BlogData(item));
         const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
         setPosts(data);
         setTotalPages(Math.ceil(numberOfPosts / postsPerPage));
@@ -93,13 +90,12 @@ const Blog = () => {
       try {
         const selectedCategoryId =
           activeCategory !== 0 ? activeCategory : undefined;
+
         const res = await withMinLoading(
           searchPosts(query, page, postsPerPage, selectedCategoryId),
           500
         );
-        // Disable no-explicit-any rule for this line
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const results = res.data.map((item: any) => new BlogData(item));
+        const results = res.data.map((item) => new BlogData(item));
         const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
         setPosts(results);
         setTotalPages(Math.ceil(numberOfPosts / postsPerPage));
