@@ -3,6 +3,7 @@ import Image from "next/image";
 import IconAuthor from "../assets/images/co-author.png";
 import { BlogData } from "../types/posts";
 import { formatDate } from "../utils/date";
+import { Category } from "../types/category";
 
 interface LatestPostsProps {
   posts: BlogData[];
@@ -31,8 +32,7 @@ const LatestPosts = ({ posts }: LatestPostsProps) => {
                 </figure>
                 <div className="card-content">
                   <div className="card-category">
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    {post?.categories?.map((category: any) => (
+                    {post?.categories?.map((category: Category) => (
                       <div className="card-category-label" key={category?.id}>
                         <span className="card-text-category">
                           {category?.name}

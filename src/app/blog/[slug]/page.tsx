@@ -8,6 +8,7 @@ import { fetchPostDetail } from "@/app/utils/fetchPostDetail";
 import { withMinLoading } from "@/app/utils/withMinLoading";
 import IconAuthor from "../../assets/images/co-author.png";
 import Footer from "@/app/components/Footer";
+import { Category } from "@/app/types/category";
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -49,9 +50,7 @@ const BlogDetail = () => {
                   dangerouslySetInnerHTML={{ __html: blogDetail?.title || "" }}
                 />
                 <div className="category">
-                  {/* Disable no-explicit-any rule for this line */}
-                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  {blogDetail?.categories?.map((category: any) => (
+                  {blogDetail?.categories?.map((category: Category) => (
                     <div className="card-category-label" key={category?.id}>
                       <span className="card-text-category">
                         {category?.name}

@@ -4,11 +4,12 @@ import { usePinnedPost } from "../hooks/usePinnedPost";
 import { formatDate } from "../utils/date";
 import IconAuthor from "../assets/images/co-author.png";
 import PinSkeleton from "./PinSkeleton";
+import { Category } from "../types/category";
 
 const PinnedPost = () => {
   const { pinnedPost, isLoading, error } = usePinnedPost();
   if (isLoading) return <PinSkeleton />;
-  if (error) return <PinSkeleton />;
+  if (error) return <div>Error: {error}</div>;
   if (!pinnedPost) return <PinSkeleton />;
 
   return (
@@ -26,11 +27,9 @@ const PinnedPost = () => {
           <div className="pin-overlay"></div>
           <div className="pin-content">
             <div className="pin-cate">
-              {/* Disable no-explicit-any rule for this line */}
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {pinnedPost?.categories?.map((category: any) => (
-                <div className="pin-cate-label" key={category?.id}>
-                  <span className="pin-cate-name">{category?.name}</span>
+              {pinnedPost?.categories?.map((category: Category) => (
+                <div className="pin-cate-label" key={category.id}>
+                  <span className="pin-cate-name">{category.name}</span>
                 </div>
               ))}
             </div>
