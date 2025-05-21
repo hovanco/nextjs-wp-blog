@@ -12,18 +12,17 @@ import { searchPosts } from "../utils/searchPosts";
 import { withMinLoading } from "../utils/withMinLoading";
 import Footer from "../components/Footer";
 
-import {
-  fetchAllFeaturedPosts,
-  fetchLatestPostsExcludingPinned,
-} from "../utils/fetchPostFeatured";
+import { fetchLatestPostsExcludingPinned } from "../utils/fetchPostFeatured";
 import LatestPosts from "../components/LatestPosts";
 import CardSkeleton from "../components/CardSkeleton";
 import PinSkeleton from "../components/PinSkeleton";
 import CategorySkeleton from "../components/CategorySkeleton";
 import PinnedPost from "../components/PinnedPost";
+import { usePinnedPost } from "../hooks/usePinnedPost";
 
 const Blog = () => {
   const postsPerPage = 12;
+
   const [posts, setPosts] = useState<BlogData[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,19 +30,20 @@ const Blog = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState(0);
 
-  const [featuredPost, setFeaturedPost] = useState<BlogData | null>(null);
   const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
-
   const [isSearching, setIsSearching] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
+
+  const { pinnedPost } = usePinnedPost();
 
   const getPosts = useCallback(
     async (page = 1) => {
       try {
         const excludedIds = [
-          Number(featuredPost?.id),
+          Number(pinnedPost?.id),
           ...latestPosts.map((post) => Number(post.id)),
         ].filter((id): id is number => !isNaN(id));
+
         const response = await withMinLoading(
           fetchPosts(postsPerPage, page, excludedIds),
           500
@@ -61,7 +61,7 @@ const Blog = () => {
         setIsLoading(false);
       }
     },
-    [featuredPost, latestPosts]
+    [pinnedPost, latestPosts]
   );
 
   const getPostsByCategory = useCallback(
@@ -93,7 +93,7 @@ const Blog = () => {
   };
 
   const handleCategoryClick = (categoryId: number) => {
-    if (categoryId === activeCategory) return; // nếu click lại category đang active thì không làm gì
+    if (categoryId === activeCategory) return;
     setCurrentPage(1);
     setActiveCategory(categoryId);
     setIsLoading(true);
@@ -137,33 +137,31 @@ const Blog = () => {
     }
   };
 
-  const getPinnedAndLatestPosts = useCallback(async () => {
+  const getLatestPosts = useCallback(async () => {
     try {
-      const pinnedRes = await withMinLoading(fetchAllFeaturedPosts(), 500);
-      if (pinnedRes && pinnedRes.length > 0) {
-        const pinnedPost = pinnedRes[0];
-        setFeaturedPost(pinnedPost);
-        const latestRes = await fetchLatestPostsExcludingPinned(
-          Number(pinnedPost.id)
-        );
-        setLatestPosts(latestRes);
-      }
+      if (!pinnedPost) return;
+      const latestRes = await fetchLatestPostsExcludingPinned(
+        Number(pinnedPost.id)
+      );
+      setLatestPosts(latestRes);
     } catch (error) {
-      console.error("Error fetching pinned or latest posts:", error);
-    } finally {
-      setIsLoading(false);
+      console.error("Error fetching latest posts:", error);
     }
-  }, []);
+  }, [pinnedPost]);
 
-  // Fetch pinned & categories when first load
   useEffect(() => {
-    getPinnedAndLatestPosts();
     geCategoriesPost();
-  }, [getPinnedAndLatestPosts, geCategoriesPost]);
+  }, [geCategoriesPost]);
 
   useEffect(() => {
-    if (featuredPost && latestPosts.length > 0) {
-      if (isSearching) return; // đã xử lý riêng trong getSearchPosts
+    if (pinnedPost) {
+      getLatestPosts();
+    }
+  }, [pinnedPost, getLatestPosts]);
+
+  useEffect(() => {
+    if (pinnedPost && latestPosts.length > 0) {
+      if (isSearching) return;
       if (isFiltering && activeCategory !== 0) {
         getPostsByCategory(activeCategory, currentPage);
       } else {
@@ -173,7 +171,7 @@ const Blog = () => {
   }, [
     currentPage,
     activeCategory,
-    featuredPost,
+    pinnedPost,
     latestPosts,
     getPosts,
     getPostsByCategory,
