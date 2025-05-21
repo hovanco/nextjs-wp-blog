@@ -10,12 +10,8 @@ import { fetchPosts, fetchPostsByCategory } from "../utils/fetchPosts";
 import { fetchCategories } from "../utils/fetchCategories";
 import { searchPosts } from "../utils/searchPosts";
 import { withMinLoading } from "../utils/withMinLoading";
-
-import Image from "next/image";
-import Link from "next/link";
-import IconAuthor from "../assets/images/co-author.png";
-import { formatDate } from "../utils/date";
 import Footer from "../components/Footer";
+
 import {
   fetchAllFeaturedPosts,
   fetchLatestPostsExcludingPinned,
@@ -24,6 +20,7 @@ import LatestPosts from "../components/LatestPosts";
 import CardSkeleton from "../components/CardSkeleton";
 import PinSkeleton from "../components/PinSkeleton";
 import CategorySkeleton from "../components/CategorySkeleton";
+import PinnedPost from "../components/PinnedPost";
 
 const Blog = () => {
   const postsPerPage = 12;
@@ -197,63 +194,7 @@ const Blog = () => {
             !isSearching &&
             !isFiltering && (
               <div className="featured-and-latest">
-                <div data-aos="fade-up" className="post-pin">
-                  {featuredPost && (
-                    <Link
-                      className="pin-link"
-                      href={`/blog/${featuredPost?.slug}`}
-                    >
-                      <div className="pin-wrapper">
-                        <figure className="pin-img">
-                          <Image
-                            alt="Post Image"
-                            width={1920}
-                            height={1080}
-                            src={featuredPost?.postImage || ""}
-                          />
-                        </figure>
-                        <div className="pin-overlay"></div>
-                        <div className="pin-content">
-                          <div className="pin-cate">
-                            {/* Disable no-explicit-any rule for this line */}
-                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                            {featuredPost?.categories?.map((category: any) => (
-                              <div
-                                className="pin-cate-label"
-                                key={category?.id}
-                              >
-                                <span className="pin-cate-name">
-                                  {category?.name}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                          <h1 className="pin-title">{featuredPost?.title}</h1>
-                          <div className="pin-footer">
-                            <div className="pin-author">
-                              <Image
-                                className="pin-icon-author"
-                                src={IconAuthor?.src}
-                                alt="Icon Author"
-                                width={36}
-                                height={36}
-                              />
-                              <span className="pin-text-author">Co.Ho</span>
-                            </div>
-                            <div className="pin-time">
-                              <time
-                                className="pin-text-time"
-                                dangerouslySetInnerHTML={{
-                                  __html: formatDate(featuredPost?.date || ""),
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  )}
-                </div>
+                <PinnedPost />
                 <LatestPosts posts={latestPosts} />
               </div>
             )
