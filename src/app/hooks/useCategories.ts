@@ -1,7 +1,7 @@
-import { useEffect, useState, useCallback } from "react";
-import { Category } from "../types/category";
-import { fetchCategories } from "../utils/fetchCategories";
+import { useCallback, useEffect, useState } from "react";
 import { withMinLoading } from "../utils/withMinLoading";
+import { fetchCategories } from "../utils/fetchCategories";
+import { Category } from "../types/category";
 
 export const useCategories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -11,9 +11,6 @@ export const useCategories = () => {
     try {
       setIsLoading(true);
       const data = await withMinLoading(fetchCategories(), 500);
-      if (data.length === 0) {
-        console.warn("No categories found.");
-      }
       const updated = [{ id: 0, name: "All" }, ...data];
       setCategories(updated);
     } catch (error) {
@@ -29,7 +26,7 @@ export const useCategories = () => {
 
   return {
     categories,
-    isLoadingCategories: isLoading,
+    isLoading: isLoading, // alias bên ngoài khi cần
     refetchCategories: loadCategories,
   };
 };

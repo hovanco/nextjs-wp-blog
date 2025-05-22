@@ -18,7 +18,6 @@ export const useSearchPosts = (
     setIsSearching(true);
     try {
       const categoryId = activeCategory !== 0 ? activeCategory : undefined;
-
       const res = await withMinLoading(
         searchPosts(query, page, postsPerPage, categoryId),
         500
@@ -26,7 +25,6 @@ export const useSearchPosts = (
       const results = (res.data as WPPostRawData[]).map(
         (item) => new BlogData(item)
       );
-
       const numberOfPosts = parseInt(res.headers["x-wp-total"], 10);
       setSearchResults(results);
       setTotalPages(Math.ceil(numberOfPosts / postsPerPage));
@@ -48,7 +46,7 @@ export const useSearchPosts = (
     searchResults,
     totalPages,
     isSearching,
-    isLoading,
+    isLoading: isLoading,
     handleSearch,
     resetSearch,
   };

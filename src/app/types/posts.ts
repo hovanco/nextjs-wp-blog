@@ -1,5 +1,6 @@
 import { WPPostRawData } from "../types/wp-post";
 import { Category } from "./category";
+import { WPTerm } from "../types/wp-term";
 export class BlogData {
   id: string;
   slug: string;
@@ -21,9 +22,9 @@ export class BlogData {
     this.date = data?.date ?? "";
     this.authorName = data?._embedded?.author?.[0]?.name ?? "";
 
-    // Lấy categories từ wp:term (thường là mảng các taxonomy), chỉ lấy phần category (index 0)
-    const categoryTerms = data?._embedded?.["wp:term"]?.[0] ?? [];
-    this.categories = categoryTerms.map((term: any) => ({
+    const categoryTerms: WPTerm[] = data?._embedded?.["wp:term"]?.[0] ?? [];
+
+    this.categories = categoryTerms.map((term: WPTerm) => ({
       id: term.id,
       name: term.name,
       slug: term.slug,
@@ -37,7 +38,6 @@ export class BlogData {
 
     this.content = data?.content?.rendered ?? "";
 
-    // Xác định is_featured dựa trên các trường trong ACF hoặc post meta
     this.is_featured =
       data?.acf?.is_featured === true ||
       data?.acf?.is_featured === 1 ||

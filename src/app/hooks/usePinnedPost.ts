@@ -33,7 +33,7 @@ export const usePinnedPost = () => {
 
   return {
     pinnedPost,
-    isLoading,
+    isLoading: isLoading, // alias bên ngoài
     error,
     refetch: fetchPinnedPostData,
   };

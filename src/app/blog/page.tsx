@@ -30,7 +30,7 @@ const Blog = () => {
   const [isFiltering, setIsFiltering] = useState(false);
   const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
 
-  const { categories, isLoadingCategories } = useCategories();
+  const { categories, isLoading: isLoadingCategories } = useCategories();
   const { pinnedPost } = usePinnedPost();
 
   const excludedIds = useMemo(() => {
