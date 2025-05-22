@@ -10,14 +10,14 @@ import { searchPosts } from "../utils/searchPosts";
 import { withMinLoading } from "../utils/withMinLoading";
 import Footer from "../components/Footer";
 import { useCategories } from "../hooks/useCategories";
-import { fetchLatestPostsExcludingPinned } from "../utils/fetchPostFeatured";
+import { usePinnedPost } from "../hooks/usePinnedPost";
+import { useLatestPosts } from "../hooks/useLatestPosts";
+import { WPPostRawData } from "../types/wp-post";
 import LatestPosts from "../components/LatestPosts";
 import CardSkeleton from "../components/CardSkeleton";
 import PinSkeleton from "../components/PinSkeleton";
 import CategorySkeleton from "../components/CategorySkeleton";
 import PinnedPost from "../components/PinnedPost";
-import { usePinnedPost } from "../hooks/usePinnedPost";
-import { WPPostRawData } from "../types/wp-post";
 
 const Blog = () => {
   const postsPerPage = 12;
@@ -28,10 +28,12 @@ const Blog = () => {
   const [activeCategory, setActiveCategory] = useState(0);
   const [isSearching, setIsSearching] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
-  const [latestPosts, setLatestPosts] = useState<BlogData[]>([]);
 
   const { categories, isLoading: isLoadingCategories } = useCategories();
   const { pinnedPost } = usePinnedPost();
+  const { latestPosts, isLoading: isLoadingLatest } = useLatestPosts(
+    pinnedPost ? Number(pinnedPost.id) : undefined
+  );
 
   const excludedIds = useMemo(() => {
     return [
@@ -122,22 +124,6 @@ const Blog = () => {
     setIsLoading(true);
   };
 
-  const getLatestPosts = useCallback(async () => {
-    try {
-      if (!pinnedPost) return;
-      const latestRes = await fetchLatestPostsExcludingPinned(
-        Number(pinnedPost.id)
-      );
-      setLatestPosts(latestRes);
-    } catch (error) {
-      console.error("Error fetching latest posts:", error);
-    }
-  }, [pinnedPost]);
-
-  useEffect(() => {
-    getLatestPosts();
-  }, [getLatestPosts]);
-
   useEffect(() => {
     if (!pinnedPost || latestPosts.length === 0 || isSearching) return;
 
@@ -171,7 +157,11 @@ const Blog = () => {
             !isFiltering && (
               <div className="featured-and-latest">
                 <PinnedPost />
-                <LatestPosts posts={latestPosts} />
+                {isLoadingLatest ? (
+                  <CardSkeleton />
+                ) : (
+                  <LatestPosts posts={latestPosts} />
+                )}
               </div>
             )
           )}
