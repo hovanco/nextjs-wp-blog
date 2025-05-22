@@ -35,6 +35,8 @@ const Blog = () => {
     pinnedPost ? Number(pinnedPost.id) : undefined
   );
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   const excludedIds = useMemo(() => {
     return [
       Number(pinnedPost?.id),
@@ -89,6 +91,7 @@ const Blog = () => {
       setIsLoading(true);
       setIsSearching(true);
       setIsFiltering(false);
+      setSearchQuery(query);
       try {
         const selectedCategoryId =
           activeCategory !== 0 ? activeCategory : undefined;
@@ -168,7 +171,11 @@ const Blog = () => {
 
           <div className="blog-wrapper">
             <div className="blog-content">
-              <BlogList posts={posts} isLoading={isLoading} />
+              <BlogList
+                posts={posts}
+                isLoading={isLoading}
+                searchQuery={searchQuery}
+              />
               {!isLoading && posts.length > 0 && totalPages > 1 && (
                 <BlogPagination
                   currentPage={currentPage}
