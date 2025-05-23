@@ -3,6 +3,7 @@ import Image from "next/image";
 import { BlogData } from "../types/posts";
 import { formatDate } from "../utils/date";
 import IconAuthor from "../assets/images/co-author.png";
+import { Category } from "../types/category";
 
 interface BlogItemProps {
   post: BlogData;
@@ -23,8 +24,7 @@ const BlogItem = ({ post }: BlogItemProps) => {
           </figure>
           <div className="card-content">
             <div className="card-category">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {post?.categories?.map((category: any) => (
+              {post?.categories?.map((category: Category) => (
                 <div className="card-category-label" key={category?.id}>
                   <span className="card-text-category">{category?.name}</span>
                 </div>

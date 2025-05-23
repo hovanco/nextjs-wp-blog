@@ -725,6 +725,30 @@ section.post-pin {
   margin-bottom: 48px;
 }
 
+/* 
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+} */
+
+.posts-list-section .search-title {
+  font-size: 24px;
+  text-transform: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.posts-list-section .search-result-text {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-transform: initial;
+}
+
 @media (max-width: 480px) {
   .blog-wrapper {
     flex-direction: column-reverse;
@@ -789,5 +813,14 @@ section.post-pin {
 
   .pin-img {
     margin-bottom: 24px;
+  }
+
+
+  .posts-list-section .search-title {
+    font-size: 16px;
+  }
+
+  .posts-list-section .search--text {
+    font-size: 20px;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import IconSearch from "../assets/images/icon-search.png";
 
@@ -7,18 +7,13 @@ interface SearchBarProps {
   activeCategory: number;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  onSearch,
-  activeCategory,
-}: SearchBarProps) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }: SearchBarProps) => {
   const [query, setQuery] = useState<string>("");
-  const [searchResult, setSearchResult] = useState<string>("");
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim()) {
       onSearch(query);
-      setSearchResult(query);
       setQuery("");
     }
   };
@@ -27,14 +22,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
     if (e.key === "Enter" && query.trim()) {
       e.preventDefault();
       onSearch(query);
-      setSearchResult(query);
       setQuery("");
     }
   };
-
-  useEffect(() => {
-    setSearchResult("");
-  }, [activeCategory]);
 
   return (
     <form onSubmit={handleSearch}>
@@ -75,9 +65,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
             )}
           </div>
         </div>
-        {searchResult && (
-          <p className="search-title">Results for: {searchResult}</p>
-        )}
       </div>
     </form>
   );
